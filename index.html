@@ -33,37 +33,41 @@
         <div style="width: 45px;"></div> <!-- Balancing Spacer -->
     </div>
 
-    <!-- Main Workspace Frame Block (Transformed to Dual-Pane Grid Layout) -->
-    <div class="terminal-body-workspace">
+    <!-- Main Workspace Frame Block (Fixed to Flex Layout) -->
+<div class="terminal-body-workspace">
 
-        <!-- ==================================================================
-             LEFT COLUMN: Modular Directory Tree Manager (Static Navigation)
-             ================================================================== -->
-        <aside class="matrix-tree-pane">
-            <div class="tree-category-header">Projects</div>
-            <div class="tree-node-item active" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-folder-tree node-glyph-icon"></i>Overview
-            </div>
-            <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-sliders node-glyph-icon"></i>Cyberdeck
-            </div>
+    <!-- LEFT COLUMN: Directory Tree Navigation -->
+    <aside class="matrix-tree-pane">
+        <div class="tree-category-header">Projects</div>
+        <div class="tree-node-item active" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-folder-tree node-glyph-icon"></i>
+            <span class="node-text">Overview</span>
+        </div>
+        <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-sliders node-glyph-icon"></i>
+            <span class="node-text">Cyberdeck</span>
+        </div>
 
-            <div class="tree-category-header">Documentation</div>
-            <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-book node-glyph-icon"></i>System Wiki
-            </div>
-            <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-code-branch node-glyph-icon"></i>API Reference
-            </div>
+        <div class="tree-category-header">Documentation</div>
+        <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-book node-glyph-icon"></i>
+            <span class="node-text">System Wiki</span>
+        </div>
+        <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-code-branch node-glyph-icon"></i>
+            <span class="node-text">API Reference</span>
+        </div>
 
-            <div class="tree-category-header">System Wiki</div>
-            <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-shield-halved node-glyph-icon"></i>Security Nodes
-            </div>
-            <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
-                <i class="fa-solid fa-network-wired node-glyph-icon"></i>Telemetry Specs
-            </div>
-        </aside>
+        <div class="tree-category-header">System Wiki</div>
+        <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-shield-halved node-glyph-icon"></i>
+            <span class="node-text">Security Nodes</span>
+        </div>
+        <div class="tree-node-item" onclick="switchMatrixPane('all-payloads', this)">
+            <i class="fa-solid fa-network-wired node-glyph-icon"></i>
+            <span class="node-text">Telemetry Specs</span>
+        </div>
+    </aside>
 
         <!-- ==================================================================
              RIGHT COLUMN: Dynamic Context Window (Visible Payload Area)

@@ -100,17 +100,17 @@ body::before {
  H IGH-DENSITY DUAL-PANE WORKSPACE MATRIX                                                                   *
  ========================================================================== */
 .terminal-body-workspace {
-    padding: 0; /* Cleared out layout gaps to allow columns to snap flush */
-    display: grid;
-    grid-template-columns: 260px 1fr; /* Left: Directory Navigation Tree | Right: Content Window */
-    grid-template-rows: 100%;
-    flex-grow: 1;
+    display: flex;          /* Changed from grid to flex for bulletproof row layout */
+    flex-direction: row;
+    width: 100%;
+    height: calc(100% - 33px); /* Accounts perfectly for the window header chrome height */
     overflow: hidden;
 }
 
 /* --- Left Column: Static Directory Tree Manager --- */
 .matrix-tree-pane {
-    grid-column: 1;
+    width: 260px;
+    flex-shrink: 0;         /* Prevents the sidebar from getting squished */
     background-color: #04060b;
     border-right: 1px solid var(--border-color);
     display: flex;
@@ -135,11 +135,11 @@ body::before {
 .tree-node-item {
     display: flex;
     align-items: center;
-    padding: 0.45rem 0.5rem;
-    margin: 0.1rem 0;
+    padding: 0.5rem 0.6rem;
+    margin: 0.15rem 0;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #94a3b8;
     transition: all 0.15s ease-in-out;
 }
@@ -157,12 +157,18 @@ body::before {
 }
 
 .node-glyph-icon {
-    margin-right: 0.6rem;
-    width: 14px;
+    display: inline-block;
+    margin-right: 0.75rem;
+    width: 18px;
     text-align: center;
     color: var(--text-muted);
-    transition: color 0.15s ease;
+    flex-shrink: 0;
 }
+
+.node-text {
+    display: inline-block;
+}
+
 .tree-node-item:hover .node-glyph-icon,
 .tree-node-item.active .node-glyph-icon {
     color: var(--accent-cyan);
@@ -171,11 +177,11 @@ body::before {
 
 /* --- Right Column: Dynamic Context Window --- */
 .matrix-context-pane {
-    grid-column: 2;
+    flex-grow: 1;           /* Dynamically consumes all remaining horizontal space */
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    overflow-y: hidden; /* Controlled internally by context-payload views */
+    overflow-y: hidden;
     background: var(--panel-bg);
 }
 
