@@ -6,10 +6,12 @@
     <title>⚡ CYBERCORE SYSTEMS MATRIX</title>
     <style>
         :root {
-            --neon-glow: #00ff66;
-            --terminal-dark: #0a0a0c;
-            --dim-text: #4a5e4d;
-            --panel-bg: #0d0e12;
+            --amber-glow: #f59e0b;
+            --amber-dim: #d97706;
+            --terminal-dark: #121214; /* Volcanic charcoal matching Caddy landing profile */
+            --pure-white: #e4e4e7;    /* Bone-white text layer */
+            --dim-text: #71717a;      /* Medium slate gray for metadata */
+            --panel-bg: #18181b;      /* Slightly lifted panel backing */
         }
 
         * {
@@ -20,7 +22,7 @@
 
         body {
             background-color: var(--terminal-dark);
-            color: var(--neon-glow);
+            color: var(--pure-white);
             font-family: 'Courier New', Courier, monospace;
             padding: 2rem;
             min-height: 100vh;
@@ -31,33 +33,33 @@
             position: relative;
         }
 
-        /* CRT Scanline Shader Overlay Effect */
+        /* Clean CRT Scanline Shader Overlay */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
             z-index: 99;
-            background-size: 100% 4px, 6px 100%;
+            background-size: 100% 4px;
             pointer-events: none;
         }
 
         .terminal-container {
             width: 100%;
             max-width: 800px;
-            height: 580px; /* Expanded slightly to handle the massive package list cleanly */
+            height: 580px;
             background: var(--panel-bg);
-            border: 2px solid var(--neon-glow);
+            border: 2px solid var(--amber-dim);
             border-radius: 4px;
             padding: 1.5rem;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.08);
             display: flex;
             flex-direction: column;
         }
 
         .header-matrix {
-            border-bottom: 2px dashed var(--neon-glow);
+            border-bottom: 2px dashed var(--amber-dim);
             padding-bottom: 1rem;
             margin-bottom: 1rem;
             flex-shrink: 0;
@@ -67,7 +69,8 @@
             font-size: 1.6rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+            color: var(--pure-white);
+            text-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
         }
 
         .telemetry-row {
@@ -85,20 +88,20 @@
             line-height: 1.6;
         }
 
-        /* Customize Scrollbar to fit terminal aesthetic */
+        /* Customize Scrollbar to fit industrial aesthetic */
         .framework-manifest::-webkit-scrollbar {
             width: 6px;
         }
         .framework-manifest::-webkit-scrollbar-track {
-            background: #11141a;
+            background: var(--terminal-dark);
         }
         .framework-manifest::-webkit-scrollbar-thumb {
-            background: var(--neon-glow);
+            background: var(--amber-dim);
             border-radius: 3px;
         }
 
         .scroll-hint {
-            color: var(--dim-text);
+            color: var(--amber-glow);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -116,16 +119,16 @@
         }
 
         .module-node:hover {
-            border-left-color: var(--neon-glow);
-            background: rgba(0, 255, 102, 0.02);
+            border-left-color: var(--amber-glow);
+            background: rgba(245, 158, 11, 0.02);
         }
 
         .module-node strong {
-            color: #ffffff;
+            color: var(--amber-glow);
         }
 
         .link-vector-zone {
-            border-top: 2px dashed var(--neon-glow);
+            border-top: 2px dashed var(--amber-dim);
             padding-top: 1.25rem;
             display: flex;
             justify-content: space-between;
@@ -138,7 +141,7 @@
         .gate-link {
             display: inline-block;
             color: var(--terminal-dark);
-            background-color: var(--neon-glow);
+            background-color: var(--amber-glow);
             padding: 0.6rem 1.2rem;
             text-decoration: none;
             font-weight: bold;
@@ -146,18 +149,18 @@
             letter-spacing: 1px;
             border-radius: 2px;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
         }
 
         .gate-link:hover {
-            background-color: #ffffff;
+            background-color: var(--pure-white);
             color: var(--terminal-dark);
-            box-shadow: 0 0 15px #ffffff;
+            box-shadow: 0 0 15px var(--pure-white);
             transform: translateY(-1px);
         }
 
         .system-status {
-            color: var(--neon-glow);
+            color: var(--amber-glow);
             font-size: 0.9rem;
             animation: pulse 1.8s infinite;
         }
