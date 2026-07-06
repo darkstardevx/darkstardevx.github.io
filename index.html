@@ -6,12 +6,16 @@
     <title>⚡ CYBERCORE SYSTEMS MATRIX</title>
     <style>
         :root {
-            --amber-glow: #f59e0b;
-            --amber-dim: #d97706;
-            --terminal-dark: #121214; /* Volcanic charcoal matching Caddy landing profile */
-            --pure-white: #e4e4e7;    /* Bone-white text layer */
-            --dim-text: #71717a;      /* Medium slate gray for metadata */
-            --panel-bg: #18181b;      /* Slightly lifted panel backing */
+            /* High-Intensity Tactical Theme Matrix */
+            --bg-main: #000000;
+            --bg-card: #050507;
+            --border-color: #16181f;
+            --text-primary: #f1f5f9;
+            --text-muted: #525865;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #7c3aed;
+            --accent-amber: #f59e0b;
+            --panel-bg: #050507;
         }
 
         * {
@@ -21,25 +25,25 @@
         }
 
         body {
-            background-color: var(--terminal-dark);
-            color: var(--pure-white);
-            font-family: 'Courier New', Courier, monospace;
-            padding: 2rem;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: hidden; /* Constrains main viewport to keep layout focused */
             position: relative;
         }
 
-        /* Clean CRT Scanline Shader Overlay */
+        /* Clean subtle CRT Scanline Shader Overlay */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
             z-index: 99;
             background-size: 100% 4px;
             pointer-events: none;
@@ -47,183 +51,307 @@
 
         .terminal-container {
             width: 100%;
-            max-width: 800px;
-            height: 580px;
+            max-width: 850px;
+            height: 620px; /* Locked height footprint for advanced layout control */
             background: var(--panel-bg);
-            border: 2px solid var(--amber-dim);
+            border: 2px solid var(--border-color);
             border-radius: 4px;
             padding: 1.5rem;
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.08);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.03);
             display: flex;
             flex-direction: column;
         }
 
-        .header-matrix {
-            border-bottom: 2px dashed var(--amber-dim);
-            padding-bottom: 1rem;
+        header {
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 1.25rem;
             margin-bottom: 1rem;
             flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
         h1 {
             font-size: 1.6rem;
-            letter-spacing: 2px;
+            font-weight: 800;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            color: var(--pure-white);
-            text-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
         }
 
-        .telemetry-row {
-            color: var(--dim-text);
+        .subtitle {
+            color: var(--accent-cyan);
             font-size: 0.85rem;
+            margin-top: 0.25rem;
+            letter-spacing: 0.1em;
+        }
+
+        .meta-stamp {
+            font-size: 0.75rem;
+            color: var(--text-muted);
             margin-top: 0.5rem;
         }
 
-        /* Scrollable System Module Viewport */
+        .gate-portal-btn {
+            display: inline-block;
+            color: var(--bg-main);
+            background-color: var(--accent-cyan);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 3px;
+            transition: all 0.15s ease-in-out;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        .gate-portal-btn:hover {
+            background-color: var(--text-primary);
+            box-shadow: 0 0 15px var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .scroll-hint {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Scrollable Systems Architecture Viewport */
         .framework-manifest {
             flex-grow: 1;
             overflow-y: auto;
             margin-bottom: 1rem;
             padding-right: 0.75rem;
-            line-height: 1.6;
         }
 
-        /* Customize Scrollbar to fit industrial aesthetic */
+        /* Webkit Scrollbar overrides styled for tactical aesthetic */
         .framework-manifest::-webkit-scrollbar {
             width: 6px;
         }
         .framework-manifest::-webkit-scrollbar-track {
-            background: var(--terminal-dark);
+            background: var(--bg-main);
         }
         .framework-manifest::-webkit-scrollbar-thumb {
-            background: var(--amber-dim);
+            background: var(--border-color);
             border-radius: 3px;
         }
-
-        .scroll-hint {
-            color: var(--amber-glow);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .framework-manifest::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
 
         .module-node {
-            margin-bottom: 1.25rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--dim-text);
-            transition: all 0.2s ease-in-out;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(22, 24, 31, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .module-node.released {
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        .module-node.pipeline {
+            border-left: 3px solid var(--accent-purple);
         }
 
         .module-node:hover {
-            border-left-color: var(--amber-glow);
-            background: rgba(245, 158, 11, 0.02);
+            background-color: rgba(22, 24, 31, 0.5);
         }
 
-        .module-node strong {
-            color: var(--amber-glow);
+        .module-node.released:hover {
+            border-color: var(--accent-cyan);
         }
 
-        .link-vector-zone {
-            border-top: 2px dashed var(--amber-dim);
-            padding-top: 1.25rem;
+        .module-node.pipeline:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .node-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            align-items: baseline;
+            margin-bottom: 0.35rem;
+        }
+
+        .node-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .badge.released {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+        }
+
+        .badge.pipeline {
+            background-color: rgba(124, 58, 237, 0.1);
+            color: var(--accent-purple);
+        }
+
+        .node-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
             flex-shrink: 0;
         }
 
-        .gate-link {
-            display: inline-block;
-            color: var(--terminal-dark);
-            background-color: var(--amber-glow);
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 2px;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
-        }
-
-        .gate-link:hover {
-            background-color: var(--pure-white);
-            color: var(--terminal-dark);
-            box-shadow: 0 0 15px var(--pure-white);
-            transform: translateY(-1px);
-        }
-
-        .system-status {
-            color: var(--amber-glow);
-            font-size: 0.9rem;
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+        .legal-notice {
+            background-color: rgba(245, 158, 11, 0.01);
+            border: 1px dashed rgba(245, 158, 11, 0.1);
+            padding: 0.75rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 
 <div class="terminal-container">
-    <div class="header-matrix">
-        <h1>⚡ Cybercore Systems Architecture</h1>
-        <div class="telemetry-row">HOST: darkstardevx.github.io // LAYER: standalone_user_portal</div>
-    </div>
+    <header>
+        <div>
+            <h1>subgridsec</h1>
+            <div class="subtitle">CYBERCORE SYSTEMS // REPOSITORY MATRIX</div>
+            <div class="meta-stamp">HOST_NODE: darkstardevx.github.io // DEPLOYED: 2026</div>
+        </div>
+        <a href="https://subgridsec.org" class="gate-portal-btn">subgridsec.org ↗</a>
+    </header>
 
-    <div class="scroll-hint">[▼] REGISTERS LOADED: 11 ACTIVE ARCHITECTURE MODULES</div>
+    <div class="scroll-hint">[▼] STORAGE REGISTERS: 11 LOCAL PROTOCOL FILES</div>
 
     <!-- START OF SCROLLABLE CORE MATRIX -->
     <div class="framework-manifest">
-        <div class="module-node">
-            <strong>📁 cybercore</strong> - Underpinning system core specification, global runtime protocols, and shared environment primitives.
+
+        <!-- CYBERCORE -->
+        <div class="module-node released">
+            <div class="node-header">
+                <span class="node-title">📁 cybercore</span>
+                <span class="badge released">Released</span>
+            </div>
+            <p class="node-desc">Underpinning system core specification, global runtime protocols, and shared environment primitives.</p>
         </div>
-        <div class="module-node">
-            <strong>⚙️ cyberdeck</strong> - Central environmental configuration manager, profile orchestrator, and structural engine runtime.
+
+        <!-- CYBERDECK -->
+        <div class="module-node released">
+            <div class="node-header">
+                <span class="node-title">🎛️ cyberdeck</span>
+                <span class="badge released">Released</span>
+            </div>
+            <p class="node-desc">High-level layout system, configuration matrix, and theme compilation engine for advanced local environments.</p>
         </div>
-        <div class="module-node">
-            <strong>🛠️ cyberdev</strong> - Local development pipeline toolchain, scaffolding compilers, and automation hooks for system modules.
+
+        <!-- CYBERTERM -->
+        <div class="module-node released">
+            <div class="node-header">
+                <span class="node-title">📟 cyberterm</span>
+                <span class="badge released">Released</span>
+            </div>
+            <p class="node-desc">Core terminal emulator framework optimized for high-luminance diagnostic output and ultra-dark baseline profiles.</p>
         </div>
-        <div class="module-node">
-            <strong>🎨 cybergtk</strong> - GTK structure custom compilation stylesheets, widget layer styling bindings, and asset layouts.
+
+        <!-- CYBERVAULT -->
+        <div class="module-node released">
+            <div class="node-header">
+                <span class="node-title">🔒 cybervault</span>
+                <span class="badge released">Released</span>
+            </div>
+            <p class="node-desc">High-performance configuration stasis engine, symlink management matrix, and localized state synchronizer.</p>
         </div>
-        <div class="module-node">
-            <strong>📦 cyberkit</strong> - Reusable internal API core library, developer modules, and shared structural toolkit extensions.
+
+        <!-- CYBERDEV -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🛠️ cyberdev</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">Custom automation layout compiler, scripting tools, and optimized system development toolkit.</p>
         </div>
-        <div class="module-node">
-            <strong>👁️ cybermeta</strong> - Global layout meta-parameters, configuration templates, and environment state definitions.
+
+        <!-- CYBERGTK -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🎨 cybergtk</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">GTK theme asset processing pipeline and unified layout synchronization tools.</p>
         </div>
-        <div class="module-node">
-            <strong>🐚 cybershell</strong> - Low-overhead custom shell wrapper modules, localized functions, and high-performance prompt scripts.
+
+        <!-- CYBERKIT -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🌐 cyberkit</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">Highly modular Open Source Intelligence (OSINT) intelligence-gathering and reconnaissance suite.</p>
         </div>
-        <div class="module-node">
-            <strong>💻 cyberterm</strong> - Custom low-latency, GPU-accelerated terminal emulator engine built optimized for raw console performance.
+
+        <!-- CYBERMETA -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">📷 cybermeta</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">High-capacity EXIF metadata processor and deep image telemetry parsing powerhouse.</p>
         </div>
-        <div class="module-node">
-            <strong>🔬 cybertest</strong> - Validation harness, syntax testing protocols, and matrix testing infrastructure for staging modules.
+
+        <!-- CYBERSHELL -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🐚 cybershell</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">Performance-tuned shell configuration toolkit and dynamic layout compilation workspace.</p>
         </div>
-        <div class="module-node">
-            <strong>🔒 cybervault</strong> - High-performance configuration stasis engine, symlink management matrix, and localized state synchronizer.
+
+        <!-- CYBERTEST -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🎯 cybertest</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">Streamlined security validation harness, local configuration scanner, and penetration testing engine.</p>
         </div>
-        <div class="module-node">
-            <strong>📺 cyberview</strong> - System inspection matrix monitor, lightweight interface viewports, and visual telemetry aggregators.
+
+        <!-- CYBERVIEW -->
+        <div class="module-node pipeline">
+            <div class="node-header">
+                <span class="node-title">🖼️ cyberview</span>
+                <span class="badge pipeline">In Dev</span>
+            </div>
+            <p class="node-desc">High-speed, minimalist, keyboard-centric image viewer built following modern sxiv conventions.</p>
         </div>
+
     </div>
     <!-- END OF SCROLLABLE CORE MATRIX -->
 
-    <div class="link-vector-zone">
-        <div class="system-status">● PORTAL ARCHITECTURE CONNECTED</div>
-        <a href="https://subgridsec.org" class="gate-link">Connect to subgridsec.org →</a>
-    </div>
+    <footer>
+        <div class="legal-notice">
+            <strong>LEGAL NOTICE & ATTRIBUTION PROFILE:</strong> All software modules hosted under the subgridsec.org domain or affiliated source channels represent an independent, non-commercial open-source technical specification framework. This ecosystem holds absolutely no affiliation with external corporate cybersecurity providers. Prior art is formally registered and maintained via active domain publication.
+        </div>
+    </footer>
 </div>
 
 </body>
