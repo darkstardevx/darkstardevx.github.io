@@ -32,19 +32,21 @@
         display: block; /* Breaks viewport centering layout constraints */
     }
 
+    /* --- Fixes Mobile Height Lock & Restores Viewport Scrolling --- */
     body .terminal-container {
-        height: auto;
-        min-height: none;
+        height: auto;          /* Overrides the fixed desktop 820px height */
+        min-height: 100vh;     /* Lets it fill the screen naturally */
         box-shadow: none;
         border-radius: 4px;
+        overflow: visible;     /* Unlocks container clipping */
     }
 
     /* Transform Dual-Pane Frame into a Fluid Vertical Stack */
     body .terminal-body-workspace {
         display: flex;
         flex-direction: column;
-        height: auto;
-        overflow: visible;
+        height: auto;          /* Allows contents to push down naturally */
+        overflow: visible;     /* Unlocks workspace clipping */
     }
 
     /* Transform Left Sidebar into an Upper Horizontal Navigation Block */
