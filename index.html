@@ -131,21 +131,27 @@
         }
 
         /* Webkit Scrollbar overrides styled for tactical aesthetic */
-        .framework-manifest::-webkit-scrollbar {
+        .framework-manifest::-webkit-scrollbar,
+        .legal-body::-webkit-scrollbar {
             width: 6px;
         }
-        .framework-manifest::-webkit-scrollbar-track {
+        .framework-manifest::-webkit-scrollbar-track,
+        .legal-body::-webkit-scrollbar-track {
             background: var(--bg-main);
         }
-        .framework-manifest::-webkit-scrollbar-thumb {
+        .framework-manifest::-webkit-scrollbar-thumb,
+        .legal-body::-webkit-scrollbar-thumb {
             background: var(--border-color);
             border-radius: 3px;
         }
-        .framework-manifest::-webkit-scrollbar-thumb:hover {
+        .framework-manifest::-webkit-scrollbar-thumb:hover,
+        .legal-body::-webkit-scrollbar-thumb:hover {
             background: var(--text-muted);
         }
 
         .module-node {
+            display: block;
+            text-decoration: none;
             margin-bottom: 1rem;
             padding: 1rem;
             background-color: rgba(22, 24, 31, 0.2);
@@ -211,20 +217,85 @@
             line-height: 1.5;
         }
 
+        /* Legal Attribution Interface Elements */
         footer {
             border-top: 1px solid var(--border-color);
-            padding-top: 1rem;
+            padding-top: 0.75rem;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .legal-notice {
-            background-color: rgba(245, 158, 11, 0.01);
-            border: 1px dashed rgba(245, 158, 11, 0.1);
-            padding: 0.75rem;
-            border-radius: 4px;
+        .legal-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legal-tab {
+            background-color: #111319;
             color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: inherit;
             font-size: 0.7rem;
-            line-height: 1.5;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .legal-tab:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+
+        .legal-tab.active {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.3);
+            font-weight: bold;
+        }
+
+        .legal-separator {
+            color: var(--border-color);
+            user-select: none;
+        }
+
+        .legal-body {
+            height: 75px;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            color: var(--text-muted);
+        }
+
+        .legal-content-block {
+            display: none;
+        }
+
+        .legal-content-block.active {
+            display: block;
+        }
+
+        .legal-body strong {
+            color: var(--text-primary);
+        }
+
+        .legal-body a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .legal-body a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -246,113 +317,146 @@
     <div class="framework-manifest">
 
         <!-- CYBERCORE -->
-        <div class="module-node released">
+        <a href="https://github.com/darkstardevx/cybercore" target="_blank" rel="noopener noreferrer" class="module-node released">
             <div class="node-header">
                 <span class="node-title">📁 cybercore</span>
                 <span class="badge released">Released</span>
             </div>
             <p class="node-desc">Underpinning system core specification, global runtime protocols, and shared environment primitives.</p>
-        </div>
+        </a>
 
         <!-- CYBERDECK -->
-        <div class="module-node released">
+        <a href="https://github.com/darkstardevx/cyberdeck" target="_blank" rel="noopener noreferrer" class="module-node released">
             <div class="node-header">
                 <span class="node-title">🎛️ cyberdeck</span>
                 <span class="badge released">Released</span>
             </div>
             <p class="node-desc">High-level layout system, configuration matrix, and theme compilation engine for advanced local environments.</p>
-        </div>
+        </a>
 
         <!-- CYBERTERM -->
-        <div class="module-node released">
+        <a href="https://github.com/darkstardevx/cyberterm" target="_blank" rel="noopener noreferrer" class="module-node released">
             <div class="node-header">
                 <span class="node-title">📟 cyberterm</span>
                 <span class="badge released">Released</span>
             </div>
             <p class="node-desc">Core terminal emulator framework optimized for high-luminance diagnostic output and ultra-dark baseline profiles.</p>
-        </div>
+        </a>
 
         <!-- CYBERVAULT -->
-        <div class="module-node released">
+        <a href="https://github.com/darkstardevx/cybervault" target="_blank" rel="noopener noreferrer" class="module-node released">
             <div class="node-header">
                 <span class="node-title">🔒 cybervault</span>
                 <span class="badge released">Released</span>
             </div>
             <p class="node-desc">High-performance configuration stasis engine, symlink management matrix, and localized state synchronizer.</p>
-        </div>
+        </a>
 
         <!-- CYBERDEV -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cyberdev" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🛠️ cyberdev</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">Custom automation layout compiler, scripting tools, and optimized system development toolkit.</p>
-        </div>
+        </a>
 
         <!-- CYBERGTK -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cybergtk" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🎨 cybergtk</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">GTK theme asset processing pipeline and unified layout synchronization tools.</p>
-        </div>
+        </a>
 
         <!-- CYBERKIT -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cyberkit" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🌐 cyberkit</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">Highly modular Open Source Intelligence (OSINT) intelligence-gathering and reconnaissance suite.</p>
-        </div>
+        </a>
 
         <!-- CYBERMETA -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cybermeta" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">📷 cybermeta</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">High-capacity EXIF metadata processor and deep image telemetry parsing powerhouse.</p>
-        </div>
+        </a>
 
         <!-- CYBERSHELL -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cybershell" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🐚 cybershell</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">Performance-tuned shell configuration toolkit and dynamic layout compilation workspace.</p>
-        </div>
+        </a>
 
         <!-- CYBERTEST -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cybertest" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🎯 cybertest</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">Streamlined security validation harness, local configuration scanner, and penetration testing engine.</p>
-        </div>
+        </a>
 
         <!-- CYBERVIEW -->
-        <div class="module-node pipeline">
+        <a href="https://github.com/darkstardevx/cyberview" target="_blank" rel="noopener noreferrer" class="module-node pipeline">
             <div class="node-header">
                 <span class="node-title">🖼️ cyberview</span>
                 <span class="badge pipeline">In Dev</span>
             </div>
             <p class="node-desc">High-speed, minimalist, keyboard-centric image viewer built following modern sxiv conventions.</p>
-        </div>
+        </a>
 
     </div>
     <!-- END OF SCROLLABLE CORE MATRIX -->
 
     <footer>
-        <div class="legal-notice">
-            <strong>LEGAL NOTICE & ATTRIBUTION PROFILE:</strong> All software modules hosted under the subgridsec.org domain or affiliated source channels represent an independent, non-commercial open-source technical specification framework. This ecosystem holds absolutely no affiliation with external corporate cybersecurity providers. Prior art is formally registered and maintained via active domain publication.
+        <div class="legal-nav">
+            <button class="legal-tab active" onclick="switchTab('legal-attribution', this)">Namespace & Legal Attribution</button>
+            <span class="legal-separator">/</span>
+            <button class="legal-tab" onclick="switchTab('defensive-guardrail', this)">Defensive Guardrail Statement</button>
+        </div>
+
+        <div class="legal-body">
+            <!-- MODULE 1 -->
+            <div id="legal-attribution" class="legal-content-block active">
+                ⚖️ <strong>Namespace & Legal Attribution</strong><br><br>
+                This project is an independent component of the <strong>Cybercore Systems Framework</strong> hosted canonically at <a href="https://subgridsec.org" target="_blank">subgridsec.org</a>.<br><br>
+                <strong>Copyright (c) 2026 Cybercore Tech (subgridsec.org)</strong><br><br>
+                Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br><br>
+                The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br><br>
+                THE SOFTWARE IS PROVIDED "AS-IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+            </div>
+
+            <!-- MODULE 2 -->
+            <div id="defensive-guardrail" class="legal-content-block">
+                🛡️ <strong>Defensive Guardrail Statement</strong><br><br>
+                All software components, tools, prefixes, and configurations under the "Cyber" prefix within this ecosystem are developed completely independently as open-source utilities for specialized terminal environments. They maintain absolutely no affiliation, partnership, endorsement, sponsorship, or commercial connection with any external corporate cybersecurity providers, training collectives, or federal defense contractors. Prior art is formally registered and maintained immutably via active domain publication.<br><br>
+                <strong>Contact Matrix:</strong> <a href="mailto:cybercore.sh+cybervault@gmail.com">cybercore.sh+cybervault@gmail.com</a> // <a href="https://subgridsec.org" target="_blank">subgridsec.org</a>
+            </div>
         </div>
     </footer>
 </div>
+
+<script>
+    function switchTab(blockId, element) {
+        // Deactivate all targets and buttons
+        document.querySelectorAll('.legal-content-block').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.legal-tab').forEach(t => t.classList.remove('active'));
+
+        // Target execution
+        document.getElementById(blockId).classList.add('active');
+        element.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
