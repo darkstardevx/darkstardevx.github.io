@@ -1,0 +1,170 @@
+/* ==========================================================================
+ *  UNIVERSAL MOBILE, TABLET, AND TOUCH DEVICE RESPONSIVENESS MATRIX
+ *  ========================================================================== */
+
+/* 1. Tablet Profile (iPads, Android Tablets, Foldables in Landscape/Portrait) */
+@media screen and (max-width: 1024px) {
+    body {
+        padding: 0.5rem;
+        overflow-y: auto;
+    }
+
+    body .terminal-container {
+        height: auto;
+        min-height: calc(100vh - 1rem);
+        max-width: 100%;
+    }
+
+    body .terminal-body-workspace {
+        display: flex;
+        flex-direction: row;
+    }
+
+    body .matrix-tree-pane {
+        width: 220px; /* Adapts size slightly to match display densities */
+    }
+}
+
+/* 2. Universal Mobile Profile (All iPhones, Android Devices, Small Tablets) */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-y: auto;
+        display: block; /* Breaks viewport centering layout constraints */
+    }
+
+    body .terminal-container {
+        height: auto;
+        min-height: none;
+        box-shadow: none;
+        border-radius: 4px;
+    }
+
+    /* Transform Dual-Pane Frame into a Fluid Vertical Stack */
+    body .terminal-body-workspace {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    /* Transform Left Sidebar into an Upper Horizontal Navigation Block */
+    body .matrix-tree-pane {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem;
+        max-height: 180px; /* Restricts layout space, allows local navigation wheel */
+        overflow-y: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    body .tree-category-header {
+        width: 100%; /* Forces labels to split into distinct rows */
+        margin: 0.5rem 0 0.2rem 0;
+    }
+    body .tree-category-header:first-child {
+        margin-top: 0;
+    }
+
+    body .tree-node-item {
+        display: inline-flex;
+        margin: 0;
+        padding: 0.4rem 0.6rem;
+        background: rgba(26, 31, 44, 0.3);
+    }
+
+    body .tree-node-item.active {
+        border-left: none;
+        border-bottom: 2px solid var(--accent-cyan);
+    }
+
+    /* Transform Right Pane into Full-Width Content View */
+    body .matrix-context-pane {
+        width: 100%;
+        padding: 1rem;
+        overflow-y: visible;
+    }
+
+    body header {
+        flex-direction: column; /* Vertical alignment stack for smaller viewports */
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    body .portal-interactive-wrapper {
+        width: 100%;
+    }
+
+    body .gate-portal-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Disables hover tooltip rules to bypass sticky gesture layouts on touch systems */
+    body .portal-about-popup {
+        display: none !important;
+    }
+
+    body .framework-manifest {
+        overflow-y: visible;
+        padding-right: 0;
+    }
+
+    body .module-node {
+        padding: 0.85rem;
+    }
+
+    body .node-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    body .badge {
+        align-self: flex-start;
+    }
+
+    body footer {
+        margin-top: 1.5rem;
+    }
+
+    body .legal-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    body .legal-separator {
+        display: none; /* Disables slash dividers on stacked layouts */
+    }
+
+    body .legal-tab {
+        width: 100%;
+        text-align: left;
+    }
+
+    body .legal-body {
+        height: auto;
+        max-height: 200px;
+    }
+}
+
+/* 3. Ultra-Narrow Mobile Safety Net (iPhone SE, Classic Mini Android Devices) */
+@media screen and (max-width: 360px) {
+    body h1.typewriter-node {
+        font-size: 1.4rem; /* Downscales frame sizes to block visual overflow breaks */
+    }
+
+    body .subtitle.typewriter-node {
+        font-size: 0.75rem;
+        white-space: normal; /* Permits core strings to split neatly into text lines */
+    }
+
+    body .meta-stamp.typewriter-node {
+        font-size: 0.65rem;
+        white-space: normal;
+    }
+}

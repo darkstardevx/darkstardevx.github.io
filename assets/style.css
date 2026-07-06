@@ -1,3 +1,5 @@
+@import url("responsive.css"); /* --- Hooks the Mobile Responsive Subsystem --- */
+
 /* --- Cybercore Terminal Subsystem Configuration --- */
 :root {
     --bg-main: #020204;
@@ -97,20 +99,20 @@ body::before {
 }
 
 /* ==========================================================================
- H IGH-DENSITY DUAL-PANE WORKSPACE MATRIX                                                                   *
+ H IGH-DENSITY DUAL-PANE WORKSPACE MATRIX (REFACTORED FLEX LAYOUT)                                          *
  ========================================================================== */
 .terminal-body-workspace {
-    display: flex;          /* Changed from grid to flex for bulletproof row layout */
+    display: flex;
     flex-direction: row;
     width: 100%;
     height: calc(100% - 33px); /* Accounts perfectly for the window header chrome height */
     overflow: hidden;
 }
 
-/* --- Left Column: Static Directory Tree Manager --- */
+/* --- Left Column: Directory Tree Pane --- */
 .matrix-tree-pane {
     width: 260px;
-    flex-shrink: 0;         /* Prevents the sidebar from getting squished */
+    flex-shrink: 0; /* Prevents the sidebar from getting squished */
     background-color: #04060b;
     border-right: 1px solid var(--border-color);
     display: flex;
@@ -132,6 +134,7 @@ body::before {
     margin-top: 0;
 }
 
+/* --- Fixed Item Alignment & Icon Safety Spacing --- */
 .tree-node-item {
     display: flex;
     align-items: center;
@@ -156,6 +159,7 @@ body::before {
     font-weight: bold;
 }
 
+/* Isolation rules to stop raw glyphs from crashing into text strings */
 .node-glyph-icon {
     display: inline-block;
     margin-right: 0.75rem;
@@ -163,6 +167,7 @@ body::before {
     text-align: center;
     color: var(--text-muted);
     flex-shrink: 0;
+    transition: color 0.15s ease;
 }
 
 .node-text {
@@ -177,11 +182,11 @@ body::before {
 
 /* --- Right Column: Dynamic Context Window --- */
 .matrix-context-pane {
-    flex-grow: 1;           /* Dynamically consumes all remaining horizontal space */
+    flex-grow: 1; /* Dynamically consumes all remaining horizontal space */
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    overflow-y: hidden;
+    overflow-y: hidden; /* Controlled internally by context-payload views */
     background: var(--panel-bg);
 }
 
@@ -441,7 +446,7 @@ footer {
     border-radius: 3px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.7rem;
+    font-size: 0.70rem;
     text-transform: uppercase;
     transition: all 0.15s ease;
 }
