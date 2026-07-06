@@ -9,6 +9,7 @@
             --neon-glow: #00ff66;
             --terminal-dark: #0a0a0c;
             --dim-text: #4a5e4d;
+            --panel-bg: #0d0e12;
         }
 
         * {
@@ -26,7 +27,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
         }
 
@@ -45,17 +46,21 @@
         .terminal-container {
             width: 100%;
             max-width: 800px;
-            background: #0d0e12;
+            height: 580px; /* Expanded slightly to handle the massive package list cleanly */
+            background: var(--panel-bg);
             border: 2px solid var(--neon-glow);
             border-radius: 4px;
             padding: 1.5rem;
             box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+            display: flex;
+            flex-direction: column;
         }
 
         .header-matrix {
             border-bottom: 2px dashed var(--neon-glow);
             padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
         }
 
         h1 {
@@ -71,15 +76,48 @@
             margin-top: 0.5rem;
         }
 
+        /* Scrollable System Module Viewport */
         .framework-manifest {
-            margin: 1.5rem 0;
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding-right: 0.75rem;
             line-height: 1.6;
         }
 
-        .module-node {
+        /* Customize Scrollbar to fit terminal aesthetic */
+        .framework-manifest::-webkit-scrollbar {
+            width: 6px;
+        }
+        .framework-manifest::-webkit-scrollbar-track {
+            background: #11141a;
+        }
+        .framework-manifest::-webkit-scrollbar-thumb {
+            background: var(--neon-glow);
+            border-radius: 3px;
+        }
+
+        .scroll-hint {
+            color: var(--dim-text);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .module-node {
+            margin-bottom: 1.25rem;
             padding-left: 1rem;
             border-left: 3px solid var(--dim-text);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .module-node:hover {
+            border-left-color: var(--neon-glow);
+            background: rgba(0, 255, 102, 0.02);
         }
 
         .module-node strong {
@@ -87,14 +125,14 @@
         }
 
         .link-vector-zone {
-            margin-top: 2rem;
             border-top: 2px dashed var(--neon-glow);
-            padding-top: 1.5rem;
+            padding-top: 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
+            flex-shrink: 0;
         }
 
         .gate-link {
@@ -136,25 +174,51 @@
 <div class="terminal-container">
     <div class="header-matrix">
         <h1>⚡ Cybercore Systems Architecture</h1>
-        <div class="telemetry-row">HOST: darkstardevx.github.io // ENGINE: cyber_engine_v1.0.0</div>
+        <div class="telemetry-row">HOST: darkstardevx.github.io // LAYER: standalone_user_portal</div>
     </div>
 
+    <div class="scroll-hint">[▼] REGISTERS LOADED: 11 ACTIVE ARCHITECTURE MODULES</div>
+
+    <!-- START OF SCROLLABLE CORE MATRIX -->
     <div class="framework-manifest">
-        <p style="margin-bottom: 1.5rem;">[+] Initializing environment profile landing sequence... OK</p>
-        
         <div class="module-node">
-            <strong>📁 cyberterm</strong> - Custom low-latency, GPU-accelerated terminal emulator built in Rust.
+            <strong>📁 cybercore</strong> - Underpinning system core specification, global runtime protocols, and shared environment primitives.
         </div>
         <div class="module-node">
-            <strong>⚙️ cyberdeck</strong> - Centralized environmental configuration manager and framework engine.
+            <strong>⚙️ cyberdeck</strong> - Central environmental configuration manager, profile orchestrator, and structural engine runtime.
         </div>
         <div class="module-node">
-            <strong>🔒 cybervault</strong> - High-performance localized state stasis, symlink manager, and secure snapshot deployment utility.
+            <strong>🛠️ cyberdev</strong> - Local development pipeline toolchain, scaffolding compilers, and automation hooks for system modules.
+        </div>
+        <div class="module-node">
+            <strong>🎨 cybergtk</strong> - GTK structure custom compilation stylesheets, widget layer styling bindings, and asset layouts.
+        </div>
+        <div class="module-node">
+            <strong>📦 cyberkit</strong> - Reusable internal API core library, developer modules, and shared structural toolkit extensions.
+        </div>
+        <div class="module-node">
+            <strong>👁️ cybermeta</strong> - Global layout meta-parameters, configuration templates, and environment state definitions.
+        </div>
+        <div class="module-node">
+            <strong>🐚 cybershell</strong> - Low-overhead custom shell wrapper modules, localized functions, and high-performance prompt scripts.
+        </div>
+        <div class="module-node">
+            <strong>💻 cyberterm</strong> - Custom low-latency, GPU-accelerated terminal emulator engine built optimized for raw console performance.
+        </div>
+        <div class="module-node">
+            <strong>🔬 cybertest</strong> - Validation harness, syntax testing protocols, and matrix testing infrastructure for staging modules.
+        </div>
+        <div class="module-node">
+            <strong>🔒 cybervault</strong> - High-performance configuration stasis engine, symlink management matrix, and localized state synchronizer.
+        </div>
+        <div class="module-node">
+            <strong>📺 cyberview</strong> - System inspection matrix monitor, lightweight interface viewports, and visual telemetry aggregators.
         </div>
     </div>
+    <!-- END OF SCROLLABLE CORE MATRIX -->
 
     <div class="link-vector-zone">
-        <div class="system-status">● ALL SYSTEMS RUNNING DETACHED</div>
+        <div class="system-status">● PORTAL ARCHITECTURE CONNECTED</div>
         <a href="https://subgridsec.org" class="gate-link">Connect to subgridsec.org →</a>
     </div>
 </div>
