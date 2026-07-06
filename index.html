@@ -2,16 +2,162 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CYBERCORE SYSTEMS FRAMEWORK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ CYBERCORE SYSTEMS MATRIX</title>
     <style>
-        body { background-color: #000000; color: #00ff00; font-family: monospace; padding: 3rem; }
-        h1 { border-bottom: 2px solid #00ff00; padding-bottom: 10px; }
-        .grid { color: #888; }
+        :root {
+            --neon-glow: #00ff66;
+            --terminal-dark: #0a0a0c;
+            --dim-text: #4a5e4d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--terminal-dark);
+            color: var(--neon-glow);
+            font-family: 'Courier New', Courier, monospace;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CRT Scanline Shader Overlay Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 800px;
+            background: #0d0e12;
+            border: 2px solid var(--neon-glow);
+            border-radius: 4px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+        }
+
+        .header-matrix {
+            border-bottom: 2px dashed var(--neon-glow);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+        }
+
+        .telemetry-row {
+            color: var(--dim-text);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .framework-manifest {
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .module-node {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--dim-text);
+        }
+
+        .module-node strong {
+            color: #ffffff;
+        }
+
+        .link-vector-zone {
+            margin-top: 2rem;
+            border-top: 2px dashed var(--neon-glow);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .gate-link {
+            display: inline-block;
+            color: var(--terminal-dark);
+            background-color: var(--neon-glow);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+
+        .gate-link:hover {
+            background-color: #ffffff;
+            color: var(--terminal-dark);
+            box-shadow: 0 0 15px #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .system-status {
+            color: var(--neon-glow);
+            font-size: 0.9rem;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
-    <h1>⚡ CYBERCORE SYSTEMS MATRIX</h1>
-    <p>Canonical terminal environment specifications and framework modules.</p>
-    <p class="grid">// subgridsec.org status: online</p>
+
+<div class="terminal-container">
+    <div class="header-matrix">
+        <h1>⚡ Cybercore Systems Architecture</h1>
+        <div class="telemetry-row">HOST: darkstardevx.github.io // ENGINE: raw_html_wgpu_inspired</div>
+    </div>
+
+    <div class="framework-manifest">
+        <p style="margin-bottom: 1.5rem;">[+] Initializing environment profile landing sequence... OK</p>
+        
+        <div class="module-node">
+            <strong>📁 cyberterm</strong> - Custom low-latency, GPU-accelerated terminal emulator built in Rust.
+        </div>
+        <div class="module-node">
+            <strong>⚙️ cyberdeck</strong> - Centralized environmental configuration manager and framework engine.
+        </div>
+        <div class="module-node">
+            <strong>🔒 cybervault</strong> - High-performance localized state stasis, symlink manager, and secure snapshot deployment utility.
+        </div>
+    </div>
+
+    <div class="link-vector-zone">
+        <div class="system-status">● ALL SYSTEMS RUNNING DETACHED</div>
+        <a href="https://subgridsec.org" class="gate-link">Connect to subgridsec.org →</a>
+    </div>
+</div>
+
 </body>
 </html>
