@@ -96,15 +96,107 @@ body::before {
     text-transform: uppercase;
 }
 
-/* Inner Layout Frame */
+/* ==========================================================================
+ H IGH-DENSITY DUAL-PANE WORKSPACE MATRIX                                                                   *
+ ========================================================================== */
 .terminal-body-workspace {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
+    padding: 0; /* Cleared out layout gaps to allow columns to snap flush */
+    display: grid;
+    grid-template-columns: 260px 1fr; /* Left: Directory Navigation Tree | Right: Content Window */
+    grid-template-rows: 100%;
     flex-grow: 1;
     overflow: hidden;
 }
 
+/* --- Left Column: Static Directory Tree Manager --- */
+.matrix-tree-pane {
+    grid-column: 1;
+    background-color: #04060b;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+    user-select: none;
+}
+
+.tree-category-header {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin: 1.25rem 0 0.4rem 0;
+}
+.tree-category-header:first-child {
+    margin-top: 0;
+}
+
+.tree-node-item {
+    display: flex;
+    align-items: center;
+    padding: 0.45rem 0.5rem;
+    margin: 0.1rem 0;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    transition: all 0.15s ease-in-out;
+}
+
+.tree-node-item:hover {
+    background-color: rgba(6, 182, 212, 0.05);
+    color: var(--accent-cyan);
+}
+
+.tree-node-item.active {
+    background-color: rgba(6, 182, 212, 0.08);
+    color: var(--text-primary);
+    border-left: 2px solid var(--accent-cyan);
+    font-weight: bold;
+}
+
+.node-glyph-icon {
+    margin-right: 0.6rem;
+    width: 14px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+}
+.tree-node-item:hover .node-glyph-icon,
+.tree-node-item.active .node-glyph-icon {
+    color: var(--accent-cyan);
+    text-shadow: var(--glow-cyan);
+}
+
+/* --- Right Column: Dynamic Context Window --- */
+.matrix-context-pane {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    overflow-y: hidden; /* Controlled internally by context-payload views */
+    background: var(--panel-bg);
+}
+
+.context-payload-view {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+    animation: matrixPayloadFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.context-payload-view.active {
+    display: flex;
+}
+
+@keyframes matrixPayloadFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+ I NTERNAL CONTEXT INTERFACE MODULES                                                                        *
+ ========================================================================== */
 header {
     border-bottom: 2px dashed rgba(26, 31, 44, 0.6);
     padding-bottom: 1.25rem;
@@ -145,8 +237,8 @@ h1.typewriter-node {
     letter-spacing: -0.05em;
     text-transform: uppercase;
     animation:
-        print-string 1s steps(15, end) forwards,
-        cursor-blink 0.5s step-end 3;
+    print-string 1s steps(15, end) forwards,
+    cursor-blink 0.5s step-end 3;
 }
 
 .subtitle.typewriter-node {
@@ -154,16 +246,16 @@ h1.typewriter-node {
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     animation:
-        print-string 1.2s steps(35, end) 1s forwards,
-        cursor-blink 0.5s step-end 1s 3;
+    print-string 1.2s steps(35, end) 1s forwards,
+    cursor-blink 0.5s step-end 1s 3;
 }
 
 .meta-stamp.typewriter-node {
     font-size: 0.75rem;
     color: var(--text-muted);
     animation:
-        print-string 1.5s steps(45, end) 2.2s forwards,
-        cursor-steady 0.75s step-end 2.2s infinite;
+    print-string 1.5s steps(45, end) 2.2s forwards,
+    cursor-steady 0.75s step-end 2.2s infinite;
 }
 
 .meta-stamp .host-accent { color: var(--accent-cyan); }
@@ -313,10 +405,10 @@ h1.typewriter-node {
 }
 
 /* Scrollbars */
-.framework-manifest::-webkit-scrollbar, .legal-body::-webkit-scrollbar { width: 6px; }
-.framework-manifest::-webkit-scrollbar-track, .legal-body::-webkit-scrollbar-track { background: var(--bg-main); }
-.framework-manifest::-webkit-scrollbar-thumb, .legal-body::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-.framework-manifest::-webkit-scrollbar-thumb:hover, .legal-body::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+.framework-manifest::-webkit-scrollbar, .legal-body::-webkit-scrollbar, .matrix-tree-pane::-webkit-scrollbar { width: 6px; }
+.framework-manifest::-webkit-scrollbar-track, .legal-body::-webkit-scrollbar-track, .matrix-tree-pane::-webkit-scrollbar-track { background: var(--bg-main); }
+.framework-manifest::-webkit-scrollbar-thumb, .legal-body::-webkit-scrollbar-thumb, .matrix-tree-pane::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+.framework-manifest::-webkit-scrollbar-thumb:hover, .legal-body::-webkit-scrollbar-thumb:hover, .matrix-tree-pane::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
 /* --- Footer Infrastructure Blocks --- */
 footer {
