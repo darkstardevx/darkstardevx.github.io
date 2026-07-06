@@ -1,314 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- High-Performance Multiresolution Favicon Registry -->
-<link rel="icon" type="image/png" sizes="16x16" href="assets/cyber-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/cyber-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="assets/cyber-48.png">
-<link rel="icon" type="image/png" sizes="64x64" href="assets/cyber-64.png">
-<!-- Standard Root Fallback Engine -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- High-Performance Multiresolution Favicon Registry -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/cyber-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/cyber-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/cyber-48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicons/cyber-64.png">
+    <!-- Standard Root Fallback Engine -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡ CYBERCORE SYSTEMS MATRIX</title>
-    <style>
-        :root {
-            --bg-main: #000000;
-            --bg-card: #050507;
-            --border-color: #16181f;
-            --text-primary: #f1f5f9;
-            --text-muted: #525865;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #7c3aed;
-            --accent-amber: #f59e0b;
-            --panel-bg: #050507;
-        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            padding: 2rem 1rem;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-            z-index: 99;
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-
-        .terminal-container {
-            width: 100%;
-            max-width: 850px;
-            height: 620px;
-            background: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.03);
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 1.25rem;
-            margin-bottom: 1rem;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            color: var(--accent-cyan);
-            font-size: 0.85rem;
-            margin-top: 0.25rem;
-            letter-spacing: 0.1em;
-        }
-
-        .meta-stamp {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-        }
-
-        .gate-portal-btn {
-            display: inline-block;
-            color: var(--bg-main);
-            background-color: var(--accent-cyan);
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: 3px;
-            transition: all 0.15s ease-in-out;
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
-        }
-
-        .gate-portal-btn:hover {
-            background-color: var(--text-primary);
-            box-shadow: 0 0 15px var(--text-primary);
-            transform: translateY(-1px);
-        }
-
-        .scroll-hint {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            flex-shrink: 0;
-        }
-
-        .framework-manifest {
-            flex-grow: 1;
-            overflow-y: auto;
-            margin-bottom: 1rem;
-            padding-right: 0.75rem;
-        }
-
-        .framework-manifest::-webkit-scrollbar,
-        .legal-body::-webkit-scrollbar {
-            width: 6px;
-        }
-        .framework-manifest::-webkit-scrollbar-track,
-        .legal-body::-webkit-scrollbar-track {
-            background: var(--bg-main);
-        }
-        .framework-manifest::-webkit-scrollbar-thumb,
-        .legal-body::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
-        }
-        .framework-manifest::-webkit-scrollbar-thumb:hover,
-        .legal-body::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-
-        .module-node {
-            display: block;
-            text-decoration: none;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background-color: rgba(22, 24, 31, 0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            transition: all 0.15s ease;
-        }
-
-        .module-node.released {
-            border-left: 3px solid var(--accent-cyan);
-        }
-
-        .module-node.pipeline {
-            border-left: 3px solid var(--accent-purple);
-        }
-
-        .module-node:hover {
-            background-color: rgba(22, 24, 31, 0.5);
-        }
-
-        .module-node.released:hover {
-            border-color: var(--accent-cyan);
-        }
-
-        .module-node.pipeline:hover {
-            border-color: var(--accent-purple);
-        }
-
-        .node-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.35rem;
-        }
-
-        .node-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .badge {
-            font-size: 0.65rem;
-            padding: 0.1rem 0.4rem;
-            border-radius: 3px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .badge.released {
-            background-color: rgba(6, 182, 212, 0.1);
-            color: var(--accent-cyan);
-        }
-
-        .badge.pipeline {
-            background-color: rgba(124, 58, 237, 0.1);
-            color: var(--accent-purple);
-        }
-
-        .node-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.75rem;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .legal-nav {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .legal-tab {
-            background-color: #111319;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 0.25rem 0.6rem;
-            border-radius: 3px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.7rem;
-            transition: all 0.1s ease-in-out;
-        }
-
-        .legal-tab:hover {
-            color: var(--text-primary);
-            border-color: var(--text-muted);
-        }
-
-        .legal-tab.active {
-            background-color: rgba(6, 182, 212, 0.1);
-            color: var(--accent-cyan);
-            border-color: rgba(6, 182, 212, 0.3);
-            font-weight: bold;
-        }
-
-        .legal-separator {
-            color: var(--border-color);
-            user-select: none;
-        }
-
-        .legal-body {
-            height: 75px;
-            overflow-y: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.7rem;
-            line-height: 1.4;
-            color: var(--text-muted);
-        }
-
-        .legal-content-block {
-            display: none;
-        }
-
-        .legal-content-block.active {
-            display: block;
-        }
-
-        .legal-body strong {
-            color: var(--text-primary);
-        }
-
-        .legal-body a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-
-        .legal-body a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <!-- External Style Engine Sheet Link -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="terminal-container">
     <header>
-        <div>
-            <h1>subgridsec</h1>
-            <div class="subtitle">CYBERCORE SYSTEMS // REPOSITORY MATRIX</div>
-            <div class="meta-stamp">HOST_NODE: darkstardevx.github.io // DEPLOYED: 2026</div>
+        <div class="header-terminal-grid">
+            <!-- Phase 1 Execution -->
+            <h1 class="typewriter-node">subgridsec</h1>
+
+            <!-- Phase 2 Execution -->
+            <div class="subtitle typewriter-node">CYBERCORE SYSTEMS // REPOSITORY MATRIX</div>
+
+            <!-- Phase 3 Execution (Steady Live Cursor Tracking) -->
+            <div class="meta-stamp typewriter-node">
+                HOST_NODE: <span class="host-accent">darkstardevx.github.io</span> // DEPLOYED: <span class="date-accent">2026</span>
+            </div>
         </div>
         <a href="https://subgridsec.org" class="gate-portal-btn">subgridsec.org ↗</a>
     </header>

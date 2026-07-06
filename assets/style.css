@@ -1,0 +1,342 @@
+/* --- Core Environment Configurations --- */
+:root {
+    --bg-main: #000000;
+    --bg-card: #050507;
+    --border-color: #16181f;
+    --text-primary: #f1f5f9;
+    --text-muted: #525865;
+    --accent-cyan: #06b6d4;
+    --accent-purple: #7c3aed;
+    --accent-amber: #f59e0b;
+    --panel-bg: #050507;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* CRT Scanline Overlay Engine */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+    z-index: 99;
+    background-size: 100% 4px;
+    pointer-events: none;
+}
+
+/* --- Layout Components --- */
+.terminal-container {
+    width: 100%;
+    max-width: 850px;
+    height: 620px;
+    background: var(--panel-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1.5rem;
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.scroll-hint {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+/* --- Terminal Staggered Typewriter System --- */
+.header-terminal-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.typewriter-node {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid transparent;
+    width: 0;
+}
+
+h1.typewriter-node {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    animation:
+    print-string 1.2s steps(15, end) forwards,
+    cursor-blink 0.6s step-end 3;
+}
+
+.subtitle.typewriter-node {
+    color: var(--accent-cyan);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    animation:
+    print-string 1.8s steps(35, end) 1.2s forwards,
+    cursor-blink 0.6s step-end 1.2s 3;
+}
+
+.meta-stamp.typewriter-node {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    animation:
+    print-string 2s steps(45, end) 3.0s forwards,
+    cursor-steady 0.75s step-end 3.0s infinite;
+}
+
+.meta-stamp .host-accent {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+}
+
+.meta-stamp .date-accent {
+    color: var(--accent-amber);
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+/* --- Interface Navigation & Buttons --- */
+.gate-portal-btn {
+    display: inline-block;
+    color: var(--bg-main);
+    background-color: var(--accent-cyan);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+.gate-portal-btn:hover {
+    background-color: var(--text-primary);
+    box-shadow: 0 0 15px var(--text-primary);
+    transform: translateY(-1px);
+}
+
+/* --- Repository Manifest Engine --- */
+.framework-manifest {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-right: 0.75rem;
+}
+
+.module-node {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: rgba(22, 24, 31, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.module-node.released {
+    border-left: 3px solid var(--accent-cyan);
+}
+
+.module-node.pipeline {
+    border-left: 3px solid var(--accent-purple);
+}
+
+.module-node:hover {
+    background-color: rgba(22, 24, 31, 0.5);
+}
+
+.module-node.released:hover {
+    border-color: var(--accent-cyan);
+}
+
+.module-node.pipeline:hover {
+    border-color: var(--accent-purple);
+}
+
+.node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.35rem;
+}
+
+.node-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.badge {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.badge.released {
+    background-color: rgba(6, 182, 212, 0.1);
+    color: var(--accent-cyan);
+}
+
+.badge.pipeline {
+    background-color: rgba(124, 58, 237, 0.1);
+    color: var(--accent-purple);
+}
+
+.node-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* --- Scrollbar Core Controls --- */
+.framework-manifest::-webkit-scrollbar,
+.legal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.framework-manifest::-webkit-scrollbar-track,
+.legal-body::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+.framework-manifest::-webkit-scrollbar-thumb,
+.legal-body::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+.framework-manifest::-webkit-scrollbar-thumb:hover,
+.legal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* --- Footer Terminal Matrix --- */
+footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.75rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.legal-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.legal-tab {
+    background-color: #111319;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.7rem;
+    transition: all 0.1s ease-in-out;
+}
+
+.legal-tab:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+}
+
+.legal-tab.active {
+    background-color: rgba(6, 182, 212, 0.1);
+    color: var(--accent-cyan);
+    border-color: rgba(6, 182, 212, 0.3);
+    font-weight: bold;
+}
+
+.legal-separator {
+    color: var(--border-color);
+    user-select: none;
+}
+
+.legal-body {
+    height: 75px;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+}
+
+.legal-content-block {
+    display: none;
+}
+
+.legal-content-block.active {
+    display: block;
+}
+
+.legal-body strong {
+    color: var(--text-primary);
+}
+
+.legal-body a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+}
+
+.legal-body a:hover {
+    text-decoration: underline;
+}
+
+/* --- Keyframe Matrix Engines --- */
+@keyframes print-string {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes cursor-blink {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--accent-cyan); }
+}
+
+@keyframes cursor-steady {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--text-muted); }
+}
