@@ -145,8 +145,8 @@ h1.typewriter-node {
     letter-spacing: -0.05em;
     text-transform: uppercase;
     animation:
-    print-string 1s steps(15, end) forwards,
-    cursor-blink 0.5s step-end 3;
+        print-string 1s steps(15, end) forwards,
+        cursor-blink 0.5s step-end 3;
 }
 
 .subtitle.typewriter-node {
@@ -154,16 +154,16 @@ h1.typewriter-node {
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     animation:
-    print-string 1.2s steps(35, end) 1s forwards,
-    cursor-blink 0.5s step-end 1s 3;
+        print-string 1.2s steps(35, end) 1s forwards,
+        cursor-blink 0.5s step-end 1s 3;
 }
 
 .meta-stamp.typewriter-node {
     font-size: 0.75rem;
     color: var(--text-muted);
     animation:
-    print-string 1.5s steps(45, end) 2.2s forwards,
-    cursor-steady 0.75s step-end 2.2s infinite;
+        print-string 1.5s steps(45, end) 2.2s forwards,
+        cursor-steady 0.75s step-end 2.2s infinite;
 }
 
 .meta-stamp .host-accent { color: var(--accent-cyan); }
