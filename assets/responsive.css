@@ -2,63 +2,75 @@
  *  UNIVERSAL MOBILE, TABLET, AND TOUCH DEVICE RESPONSIVENESS MATRIX
  *  ========================================================================== */
 
-/* 1. Tablet Profile (iPads, Android Tablets, Foldables in Landscape/Portrait) */
+/* 1. Tablet & Large Phone Profile (SGS22+, iPads, Android Tablets, Foldables) */
 @media screen and (max-width: 1024px) {
-    body {
-        padding: 0.5rem;
-        overflow-y: auto;
+    html, body {
+        overflow-y: auto !important; /* Force HTML element and body to allow vertical scrolling */
+        overflow-x: hidden !important;
+        height: auto !important;     /* Kill desktop 100vh locking */
+        min-height: 100vh;
     }
 
     body .terminal-container {
-        height: auto;
+        height: auto !important;     /* Destroy fixed desktop 820px tracking */
         min-height: calc(100vh - 1rem);
         max-width: 100%;
+        overflow: visible !important; /* Allow internal elements to push the frame container down */
     }
 
     body .terminal-body-workspace {
-        display: flex;
+        display: flex !important;    /* Switch to flex block execution */
         flex-direction: row;
+        height: auto !important;     /* Drop rigid calculations */
+        overflow: visible !important;
     }
 
     body .matrix-tree-pane {
-        width: 220px; /* Adapts size slightly to match display densities */
+        width: 220px;
+        height: auto !important;
+        overflow-y: visible !important; /* Drop internal column locks */
+    }
+
+    body .matrix-context-pane {
+        height: auto !important;
+        overflow-y: visible !important;
     }
 }
 
-/* 2. Universal Mobile Profile (All iPhones, Android Devices, Small Tablets) */
+/* 2. Universal Mobile Profile (All iPhones, Standard Portrait Android Screens) */
 @media screen and (max-width: 768px) {
-    body {
-        overflow-y: auto;
-        display: block; /* Breaks viewport centering layout constraints */
+    html, body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: block !important;    /* Break the desktop flex centering engine completely */
+        height: auto !important;
     }
 
-    /* --- Fixes Mobile Height Lock & Restores Viewport Scrolling --- */
     body .terminal-container {
-        height: auto;          /* Overrides the fixed desktop 820px height */
-        min-height: 100vh;     /* Lets it fill the screen naturally */
+        height: auto !important;
+        min-height: none !important;
         box-shadow: none;
         border-radius: 4px;
-        overflow: visible;     /* Unlocks container clipping */
+        overflow: visible !important;
     }
 
     /* Transform Dual-Pane Frame into a Fluid Vertical Stack */
     body .terminal-body-workspace {
-        display: flex;
-        flex-direction: column;
-        height: auto;          /* Allows contents to push down naturally */
-        overflow: visible;     /* Unlocks workspace clipping */
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: visible !important;
     }
 
     /* Transform Left Sidebar into an Upper Horizontal Navigation Block */
     body .matrix-tree-pane {
-        width: 100%;
+        width: 100% !important;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
         padding: 1rem;
-        max-height: 180px; /* Restricts layout space, allows local navigation wheel */
-        overflow-y: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
+        max-height: none !important;  /* Remove local navigation wheel height constraints */
+        overflow-y: visible !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
         gap: 0.5rem;
     }
 
@@ -71,7 +83,7 @@
     }
 
     body .tree-node-item {
-        display: inline-flex;
+        display: inline-flex !important;
         margin: 0;
         padding: 0.4rem 0.6rem;
         background: rgba(26, 31, 44, 0.3);
@@ -84,13 +96,13 @@
 
     /* Transform Right Pane into Full-Width Content View */
     body .matrix-context-pane {
-        width: 100%;
+        width: 100% !important;
         padding: 1rem;
-        overflow-y: visible;
+        overflow-y: visible !important;
     }
 
     body header {
-        flex-direction: column; /* Vertical alignment stack for smaller viewports */
+        flex-direction: column;
         gap: 1rem;
         align-items: flex-start;
     }
@@ -111,7 +123,7 @@
     }
 
     body .framework-manifest {
-        overflow-y: visible;
+        overflow-y: visible !important;
         padding-right: 0;
     }
 
@@ -140,7 +152,7 @@
     }
 
     body .legal-separator {
-        display: none; /* Disables slash dividers on stacked layouts */
+        display: none;
     }
 
     body .legal-tab {
@@ -149,20 +161,21 @@
     }
 
     body .legal-body {
-        height: auto;
-        max-height: 200px;
+        height: auto !important;
+        max-height: none !important; /* Allow full expansion of legal content box */
+        overflow-y: visible !important;
     }
 }
 
 /* 3. Ultra-Narrow Mobile Safety Net (iPhone SE, Classic Mini Android Devices) */
 @media screen and (max-width: 360px) {
     body h1.typewriter-node {
-        font-size: 1.4rem; /* Downscales frame sizes to block visual overflow breaks */
+        font-size: 1.4rem;
     }
 
     body .subtitle.typewriter-node {
         font-size: 0.75rem;
-        white-space: normal; /* Permits core strings to split neatly into text lines */
+        white-space: normal;
     }
 
     body .meta-stamp.typewriter-node {
