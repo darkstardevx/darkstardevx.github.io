@@ -104,6 +104,8 @@ main, .topbar, footer { position: relative; z-index: 1; }
 }
 
 .brand-mark {
+  width: 38px;
+  height: auto;
   filter: drop-shadow(0 0 8px rgba(255, 46, 230, 0.5));
 }
 
@@ -261,8 +263,8 @@ main, .topbar, footer { position: relative; z-index: 1; }
 }
 
 .hero-mark {
-  width: 92px;
-  height: 92px;
+  width: 128px;
+  height: auto;
   filter: drop-shadow(0 0 22px rgba(255, 46, 230, 0.45)) drop-shadow(0 0 40px rgba(46, 241, 255, 0.2));
   margin-bottom: 1.5rem;
 }
