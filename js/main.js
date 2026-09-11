@@ -285,3 +285,20 @@ document.querySelectorAll(".drawer-link").forEach((a) => a.addEventListener("cli
 
 // ------------------------------------------------------------
 renderProjects();
+
+// ------------------------------------------------------------
+// Futuristic touch: cursor-tracked 3D tilt + glare on every card. Runs
+// after renderProjects() so the dynamically-built Systems cards are in the
+// DOM too, not just the static Connect/Support ones. Skips cleanly if the
+// CDN script failed to load or the visitor prefers reduced motion — the
+// plain CSS glow/lift-free hover in style.css still works either way.
+if (window.VanillaTilt && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  VanillaTilt.init(document.querySelectorAll(".card"), {
+    max: 8,
+    speed: 400,
+    glare: true,
+    "max-glare": 0.15,
+    scale: 1.02,
+    perspective: 900,
+  });
+}

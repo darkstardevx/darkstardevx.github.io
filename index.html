@@ -55,18 +55,29 @@
   <button class="drawer-close" id="drawerClose" aria-label="Close menu">
     <img src="assets/icons/close.svg" alt="">
   </button>
-  <div class="drawer-tag">SYSTEM_NAV</div>
-  <ul>
-    <li><a href="#overview" class="drawer-link"><img src="assets/icons/hex.svg" alt=""> Overview</a></li>
-    <li><a href="#systems" class="drawer-link"><img src="assets/icons/grid.svg" alt=""> Systems</a></li>
-    <li><a href="#about" class="drawer-link"><img src="assets/icons/terminal.svg" alt=""> About</a></li>
-    <li><a href="#connect" class="drawer-link"><img src="assets/icons/mail.svg" alt=""> Connect</a></li>
-    <li><a href="#support" class="drawer-link"><img src="assets/icons/heart.svg" alt=""> Support</a></li>
+  <div class="drawer-tag">📁 SYSTEM_NAV</div>
+  <ul class="drawer-nav">
+    <li><a href="#overview" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
+    </span> Overview</a></li>
+    <li><a href="#systems" class="drawer-link" style="--tint:var(--magenta);"><span class="dl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
+    </span> Systems</a></li>
+    <li><a href="#about" class="drawer-link" style="--tint:var(--purple);"><span class="dl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
+    </span> About</a></li>
+    <li><a href="#connect" class="drawer-link" style="--tint:var(--pink);"><span class="dl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
+    </span> Connect</a></li>
+    <li><a href="#support" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
+    </span> Support</a></li>
   </ul>
   <div class="drawer-divider"></div>
-  <ul>
-    <li><a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="drawer-link"><img src="assets/icons/github.svg" alt=""> GitHub ↗</a></li>
-    <li><a href="https://subgridsec.org" target="_blank" rel="noopener" class="drawer-link"><img src="assets/icons/external.svg" alt=""> subgridsec.org ↗</a></li>
+  <ul class="drawer-nav">
+    <li><a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-emoji">🐙</span> GitHub ↗</a></li>
+    <li><a href="https://subgridsec.org" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--purple);"><span class="dl-emoji">🌐</span> subgridsec.org ↗</a></li>
+    <li><a href="https://github.com/sponsors/darkstardevx" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--pink);"><span class="dl-emoji">💛</span> Sponsor ↗</a></li>
   </ul>
 </nav>
 
@@ -235,15 +246,18 @@
               <p class="card-desc">Every public repo in this ecosystem, source-of-truth.</p>
             </div>
           </a>
-          <a href="mailto:darkstardevx@gmail.com" class="card-link">
-            <div class="card" style="--accent:var(--pink); --glow:rgba(255,95,163,.35); --glow-soft:rgba(255,95,163,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/mail.svg" alt=""> Email</span>
-                <span class="badge badge-pink">Direct</span>
-              </div>
-              <p class="card-desc">darkstardevx@gmail.com</p>
+          <div class="card" style="--accent:var(--pink); --glow:rgba(255,95,163,.35); --glow-soft:rgba(255,95,163,.08); cursor:default;">
+            <div class="card-head">
+              <span class="card-title"><img src="assets/icons/mail.svg" alt=""> Email</span>
+              <span class="badge badge-pink">Direct</span>
             </div>
-          </a>
+            <p class="card-desc">
+              <a href="mailto:darkstardevx@gmail.com" style="color:var(--text-primary); text-decoration:underline;">darkstardevx@gmail.com</a>
+              <br>
+              <span style="color:var(--text-dim); font-size:0.78rem;">backup:</span>
+              <a href="mailto:cybercore.sh@gmail.com" style="color:var(--text-muted); text-decoration:underline;">cybercore.sh@gmail.com</a>
+            </p>
+          </div>
           <a href="https://subgridsec.org" target="_blank" rel="noopener" class="card-link">
             <div class="card" style="--accent:var(--purple); --glow:rgba(157,78,221,.35); --glow-soft:rgba(157,78,221,.08);">
               <div class="card-head">
@@ -354,6 +368,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

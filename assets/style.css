@@ -154,7 +154,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   height: 38px;
   background: none;
   border: 1px solid var(--hairline);
-  border-radius: 6px;
+  border-radius: 2px;
   cursor: pointer;
   padding: 0;
 }
@@ -196,13 +196,33 @@ main, .topbar, footer { position: relative; z-index: 1; }
   height: 100vh;
   background: var(--panel);
   border-left: 1px solid var(--hairline);
-  box-shadow: -12px 0 50px rgba(0, 0, 0, 0.7);
+  box-shadow: -12px 0 50px rgba(0, 0, 0, 0.7), -1px 0 24px rgba(255, 46, 230, 0.12);
   z-index: 95;
   padding: 1.75rem 1.5rem;
-  transition: right 0.3s cubic-bezier(.4,0,.2,1);
+  transition: right 0.32s cubic-bezier(.4,0,.2,1);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .drawer.open { right: 0; }
+
+/* animated neon strip down the hinge edge — a little sign of life even
+   before anything is clicked */
+.drawer::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--magenta), var(--purple), var(--cyan));
+  background-size: 100% 300%;
+  opacity: 0.8;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .drawer::before { animation: hinge-scan 6s linear infinite; }
+}
+@keyframes hinge-scan {
+  0% { background-position: 0 0%; }
+  100% { background-position: 0 100%; }
+}
 
 .drawer-close {
   position: absolute;
@@ -213,8 +233,9 @@ main, .topbar, footer { position: relative; z-index: 1; }
   color: var(--text-muted);
   cursor: pointer;
   padding: 0.3rem;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
-.drawer-close:hover { color: var(--pink); }
+.drawer-close:hover { color: var(--pink); transform: rotate(90deg); }
 .drawer-close img { filter: invert(1); opacity: 0.8; }
 
 .drawer-tag {
@@ -228,7 +249,22 @@ main, .topbar, footer { position: relative; z-index: 1; }
 
 .drawer ul { list-style: none; margin: 0; padding: 0; }
 
+/* Each item slides + fades in with its own delay once the drawer opens —
+   a little boot-sequence feel instead of everything just appearing. */
+.drawer-nav li {
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.drawer.open .drawer-nav li { opacity: 1; transform: none; }
+.drawer-nav li:nth-child(1) { transition-delay: 0.05s; }
+.drawer-nav li:nth-child(2) { transition-delay: 0.1s; }
+.drawer-nav li:nth-child(3) { transition-delay: 0.15s; }
+.drawer-nav li:nth-child(4) { transition-delay: 0.2s; }
+.drawer-nav li:nth-child(5) { transition-delay: 0.25s; }
+
 .drawer-link {
+  --tint: var(--magenta);
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -237,13 +273,21 @@ main, .topbar, footer { position: relative; z-index: 1; }
   color: var(--text-primary);
   font-size: 0.92rem;
   border-left: 2px solid transparent;
-  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease, text-shadow 0.15s ease;
 }
-.drawer-link img { width: 16px; height: 16px; filter: invert(1) opacity(0.6); }
+.dl-icon {
+  display: flex;
+  color: var(--tint);
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.dl-icon svg { width: 17px; height: 17px; }
+.dl-emoji { font-size: 1rem; line-height: 1; filter: grayscale(0.15); }
+
 .drawer-link:hover {
-  border-left-color: var(--magenta);
+  border-left-color: var(--tint);
   background: var(--panel-raised);
-  color: var(--pink);
+  color: var(--tint);
+  text-shadow: 0 0 10px currentColor;
 }
 
 .drawer-divider {
@@ -308,7 +352,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   font-weight: 600;
   text-decoration: none;
   padding: 0.75rem 1.4rem;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
   border: 1px solid transparent;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -343,7 +387,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
 .terminal-window {
   background: var(--panel);
   border: 1px solid var(--hairline);
-  border-radius: 10px;
+  border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
 }
@@ -464,7 +508,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   padding: 0.55rem 0.8rem;
   background: var(--void);
   border: 1px solid var(--hairline);
-  border-radius: 5px;
+  border-radius: 2px;
   font-size: 0.78rem;
 }
 .info-row span:first-child { color: var(--text-dim); }
@@ -483,7 +527,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   background: var(--void);
   border: 1px solid var(--hairline);
   border-left: 3px solid var(--stat-color, var(--cyan));
-  border-radius: 6px;
+  border-radius: 2px;
 }
 
 .stat-num {
@@ -599,7 +643,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   background: var(--void);
   border: 1px solid var(--hairline);
   border-left: 3px solid var(--accent);
-  border-radius: 7px;
+  border-radius: 3px;
   padding: 1.15rem;
   height: 100%;
   cursor: pointer;
@@ -622,7 +666,6 @@ main, .topbar, footer { position: relative; z-index: 1; }
 }
 
 .card:hover {
-  transform: translateY(-4px) scale(1.015);
   border-color: var(--accent);
   background: var(--panel);
   box-shadow:
@@ -630,6 +673,10 @@ main, .topbar, footer { position: relative; z-index: 1; }
     0 0 0 1px var(--glow-soft),
     0 0 32px var(--glow);
 }
+/* transform/lift on hover is handled by VanillaTilt (see main.js) — a real
+   3D tilt tracking the cursor, not just a flat translateY, so it isn't
+   fighting the library's own inline transform. Fallback for no-JS/reduced
+   motion: VanillaTilt is skipped entirely and .card just keeps the glow. */
 .card:hover::before { opacity: 1; }
 
 .card:focus-visible {
@@ -726,7 +773,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--magenta);
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 46, 230, 0.12);
   padding: 2rem;
   z-index: 200;
