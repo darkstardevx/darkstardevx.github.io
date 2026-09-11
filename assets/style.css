@@ -442,22 +442,37 @@ main, .topbar, footer { position: relative; z-index: 1; }
 
 .tabs-header {
   display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
   background: var(--panel-raised);
   border-bottom: 1px solid var(--hairline);
+  flex-wrap: wrap;
 }
 
 .tabs-header label {
+  --tab-color: var(--text-muted);
   flex: 1;
+  min-width: 140px;
   text-align: center;
-  padding: 0.95rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tab-color);
   cursor: pointer;
-  border-right: 1px solid var(--hairline);
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--void);
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, text-shadow 0.18s ease;
 }
-.tabs-header label:last-child { border-right: none; }
+
+/* Each tab keeps its own identity at rest — a dim outline of its category
+   color — so the three are visually separated before you even pick one,
+   not just after. */
+.tabs-header label[for="tab-released"] { --tab-color: #4fc7d1; border-color: rgba(46, 241, 255, 0.25); }
+.tabs-header label[for="tab-active"]   { --tab-color: #c25fb5; border-color: rgba(255, 46, 230, 0.25); }
+.tabs-header label[for="tab-dev"]      { --tab-color: #8067a8; border-color: rgba(157, 78, 221, 0.3); }
+
+.tabs-header label:hover { color: var(--tab-color); background: var(--panel); }
 
 .count {
   font-size: 0.7rem;
@@ -470,15 +485,32 @@ main, .topbar, footer { position: relative; z-index: 1; }
 
 .tab-panel { display: none; padding: 1.4rem; }
 
-#tab-released:checked ~ .tabs-header label[for="tab-released"],
-#tab-active:checked ~ .tabs-header label[for="tab-active"],
-#tab-dev:checked ~ .tabs-header label[for="tab-dev"] {
-  color: var(--magenta);
-  border-bottom-color: var(--magenta);
+/* Active tab: solid neon button per category, not one shared color. */
+#tab-released:checked ~ .tabs-header label[for="tab-released"] {
+  color: #04262b;
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 22px rgba(46, 241, 255, 0.5);
 }
+#tab-active:checked ~ .tabs-header label[for="tab-active"] {
+  color: #2b0524;
+  background: var(--magenta);
+  border-color: var(--magenta);
+  box-shadow: 0 0 22px rgba(255, 46, 230, 0.5);
+}
+#tab-dev:checked ~ .tabs-header label[for="tab-dev"] {
+  color: #17092b;
+  background: var(--purple);
+  border-color: var(--purple);
+  box-shadow: 0 0 22px rgba(157, 78, 221, 0.5);
+}
+
 #tab-released:checked ~ .tabs-header label[for="tab-released"] .count,
 #tab-active:checked ~ .tabs-header label[for="tab-active"] .count,
-#tab-dev:checked ~ .tabs-header label[for="tab-dev"] .count { color: var(--magenta); }
+#tab-dev:checked ~ .tabs-header label[for="tab-dev"] .count {
+  color: inherit;
+  background: rgba(0, 0, 0, 0.2);
+}
 
 #tab-released:checked ~ #panel-released,
 #tab-active:checked ~ #panel-active,
@@ -698,7 +730,7 @@ footer {
   .hero h1 { font-size: 1.6rem; }
   .hero { padding: 3rem 1.25rem 2.25rem; }
   .tabs-header { flex-direction: column; }
-  .tabs-header label { border-right: none; border-bottom: 1px solid var(--hairline); }
+  .tabs-header label { min-width: 0; }
   .grid { grid-template-columns: 1fr; }
   .panel-body { padding: 1.25rem; }
 }
