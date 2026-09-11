@@ -70,6 +70,16 @@ a { color: inherit; }
     radial-gradient(ellipse 70% 55% at 50% 100%, rgba(157, 78, 221, 0.22), transparent 65%);
 }
 
+/* tsParticles canvas — sits above the glow blooms but still behind all real
+   content (main/topbar/footer are z-index:1). pointer-events stays on so
+   the hover-grab interaction works, but it never wins a hit-test against
+   actual UI sitting visually on top of it at the same pixel. */
+#tsparticles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .bg-glow { animation: breathe 13s ease-in-out infinite; }
 }
@@ -121,6 +131,12 @@ main, .topbar, footer { position: relative; z-index: 1; }
   text-shadow: 0 0 12px rgba(46, 241, 255, 0.6);
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
 .nav-inline {
   display: flex;
   align-items: center;
@@ -146,7 +162,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
 .nav-icon-link:hover { opacity: 1; }
 
 .hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;

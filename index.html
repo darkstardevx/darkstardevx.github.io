@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -23,6 +24,7 @@
      ============================================================ -->
 <div class="bg-scanlines" aria-hidden="true"></div>
 <div class="bg-glow" aria-hidden="true"></div>
+<div id="tsparticles" aria-hidden="true"></div>
 
 <!-- ============================================================
      NAV
@@ -33,20 +35,22 @@
     <span class="brand-word">CYBERCORE<span class="brand-word-accent">//PANEL</span></span>
   </a>
 
-  <nav class="nav-inline" aria-label="Primary">
-    <a href="#overview">Overview</a>
-    <a href="#systems">Systems</a>
-    <a href="#about">About</a>
-    <a href="#connect">Connect</a>
-    <a href="#support">Support</a>
-    <a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="nav-icon-link" aria-label="GitHub">
-      <img src="assets/icons/github.svg" alt="" width="18" height="18">
-    </a>
-  </nav>
+  <div class="nav-right">
+    <nav class="nav-inline" aria-label="Primary">
+      <a href="#overview">Overview</a>
+      <a href="#systems">Systems</a>
+      <a href="#about">About</a>
+      <a href="#connect">Connect</a>
+      <a href="#support">Support</a>
+      <a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="nav-icon-link" aria-label="GitHub">
+        <img src="assets/icons/github.svg" alt="" width="18" height="18">
+      </a>
+    </nav>
 
-  <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
-    <span></span><span></span><span></span>
-  </button>
+    <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <!-- Drawer + backdrop for mobile / hamburger nav -->
@@ -86,14 +90,14 @@
      ============================================================ -->
 <main id="top">
   <section class="hero">
-    <img src="assets/logo.svg" alt="" class="hero-mark">
-    <h1>CYBERCORE <span class="grad">SYSTEM PANEL</span></h1>
-    <p class="hero-tagline">
+    <img src="assets/logo.svg" alt="" class="hero-mark" data-aos="zoom-in" data-aos-duration="700">
+    <h1 data-aos="fade-up" data-aos-delay="100">CYBERCORE <span class="grad">SYSTEM PANEL</span></h1>
+    <p class="hero-tagline" data-aos="fade-up" data-aos-delay="200">
       Directory node for the Cybercore Systems ecosystem — Rust-built terminal
       tooling, dashboards, and Omarchy plugins, maintained by
       <strong>darkstardevx</strong>.
     </p>
-    <div class="hero-actions">
+    <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
       <a href="#systems" class="btn btn-primary">Browse Systems</a>
       <a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="btn btn-ghost">
         GitHub <img src="assets/icons/external.svg" alt="" class="btn-ext"></a>
@@ -104,7 +108,7 @@
        OVERVIEW
        ============================================================ -->
   <section class="section" id="overview">
-    <div class="terminal-window">
+    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
       <div class="titlebar">
         <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
         <span class="titlebar-text">system_info.sys</span>
@@ -136,7 +140,7 @@
        SYSTEMS
        ============================================================ -->
   <section class="section" id="systems">
-    <div class="terminal-window">
+    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
       <div class="titlebar">
         <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
         <span class="titlebar-text">systems_matrix.sys</span>
@@ -162,7 +166,7 @@
        ABOUT
        ============================================================ -->
   <section class="section" id="about">
-    <div class="terminal-window">
+    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
       <div class="titlebar">
         <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
         <span class="titlebar-text">about.sys</span>
@@ -230,7 +234,7 @@
        CONNECT
        ============================================================ -->
   <section class="section" id="connect">
-    <div class="terminal-window">
+    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
       <div class="titlebar">
         <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
         <span class="titlebar-text">connect.sys</span>
@@ -276,7 +280,7 @@
        SUPPORT
        ============================================================ -->
   <section class="section" id="support">
-    <div class="terminal-window">
+    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
       <div class="titlebar">
         <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
         <span class="titlebar-text">infrastructure_support.fund</span>
@@ -369,6 +373,9 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

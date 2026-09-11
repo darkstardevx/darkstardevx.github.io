@@ -292,7 +292,9 @@ renderProjects();
 // DOM too, not just the static Connect/Support ones. Skips cleanly if the
 // CDN script failed to load or the visitor prefers reduced motion — the
 // plain CSS glow/lift-free hover in style.css still works either way.
-if (window.VanillaTilt && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (window.VanillaTilt && !prefersReducedMotion) {
   VanillaTilt.init(document.querySelectorAll(".card"), {
     max: 8,
     speed: 400,
@@ -300,5 +302,77 @@ if (window.VanillaTilt && !window.matchMedia("(prefers-reduced-motion: reduce)")
     "max-glare": 0.15,
     scale: 1.02,
     perspective: 900,
+  });
+}
+
+// ------------------------------------------------------------
+// AOS: fade/slide sections and hero elements in as they scroll into view.
+// AOS has its own reduced-motion handling (disable: "reduce-motion") so it
+// doesn't need to be gated by prefersReducedMotion again here.
+// ------------------------------------------------------------
+if (window.AOS) {
+  AOS.init({
+    duration: 650,
+    easing: "ease-out-cubic",
+    once: true,
+    offset: 60,
+    disable: "reduce-motion",
+  });
+}
+
+// ------------------------------------------------------------
+// Typed.js: re-type each terminal `.prompt` line the first time it scrolls
+// into view, instead of it just being there — the "> whoami" / "> cat
+// career.log" lines are what actually sell the terminal feel. Leaves the
+// static text in place until then (progressive enhancement: still fully
+// readable with no JS), and never touches elements with nested markup
+// (hero tagline keeps its <strong> instead of being flattened to text).
+// ------------------------------------------------------------
+if (window.Typed && !prefersReducedMotion && "IntersectionObserver" in window) {
+  const prompts = document.querySelectorAll(".prompt");
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const el = entry.target;
+        io.unobserve(el);
+        const text = el.textContent;
+        el.textContent = "";
+        new Typed(el, {
+          strings: [text],
+          typeSpeed: 14,
+          showCursor: true,
+          cursorChar: "▌",
+        });
+      }
+    },
+    { threshold: 0.6 }
+  );
+  prompts.forEach((el) => io.observe(el));
+}
+
+// ------------------------------------------------------------
+// tsParticles: a faint constellation field behind everything — sits under
+// the real content (z-index:0 vs main's z-index:1) and stays out of the
+// way of reading, but reacts to the cursor in the empty margins around the
+// centered column. Skipped entirely under reduced motion.
+// ------------------------------------------------------------
+if (window.tsParticles && !prefersReducedMotion) {
+  tsParticles.load("tsparticles", {
+    fpsLimit: 60,
+    background: { color: "transparent" },
+    particles: {
+      number: { value: 55, density: { enable: true, area: 900 } },
+      color: { value: ["#2ef1ff", "#ff2ee6", "#9d4edd"] },
+      links: { enable: true, distance: 130, color: "#9d4edd", opacity: 0.22, width: 1 },
+      move: { enable: true, speed: 0.6, outModes: { default: "out" } },
+      opacity: { value: 0.5 },
+      size: { value: { min: 1, max: 2.5 } },
+    },
+    interactivity: {
+      events: { onHover: { enable: true, mode: "grab" }, resize: true },
+      modes: { grab: { distance: 140, links: { opacity: 0.45 } } },
+    },
+    detectRetina: true,
   });
 }
