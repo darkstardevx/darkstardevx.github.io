@@ -383,6 +383,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   max-width: 68ch;
 }
 .lede a { color: var(--pink); text-decoration: underline; }
+.lede strong { color: var(--text-primary); }
 
 /* --------------------------------------------------------------------------
    About timeline + language chips
@@ -772,6 +773,19 @@ main, .topbar, footer { position: relative; z-index: 1; }
 .statement-body p { margin: 0 0 1rem; }
 .statement-body strong { color: var(--text-primary); }
 .statement-sign { color: var(--pink); font-style: italic; }
+
+/* --------------------------------------------------------------------------
+   Support list
+   -------------------------------------------------------------------------- */
+.support-list {
+  margin: 0 0 0.5rem 1.2rem;
+  padding: 0;
+  max-width: 68ch;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+.support-list li::marker { color: var(--cyan); }
 
 /* --------------------------------------------------------------------------
    Footer
