@@ -385,6 +385,68 @@ main, .topbar, footer { position: relative; z-index: 1; }
 .lede a { color: var(--pink); text-decoration: underline; }
 
 /* --------------------------------------------------------------------------
+   About timeline + language chips
+   -------------------------------------------------------------------------- */
+.timeline {
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  max-width: 68ch;
+}
+
+.timeline li {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.timeline li:last-child { border-bottom: none; }
+
+.tl-year {
+  flex: 0 0 108px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2px;
+  padding-top: 0.1rem;
+}
+.timeline li:nth-child(4n+1) .tl-year { color: var(--cyan); text-shadow: 0 0 8px rgba(46, 241, 255, 0.4); }
+.timeline li:nth-child(4n+2) .tl-year { color: var(--magenta); text-shadow: 0 0 8px rgba(255, 46, 230, 0.4); }
+.timeline li:nth-child(4n+3) .tl-year { color: var(--purple); text-shadow: 0 0 8px rgba(157, 78, 221, 0.4); }
+.timeline li:nth-child(4n)   .tl-year { color: var(--pink); text-shadow: 0 0 8px rgba(255, 95, 163, 0.4); }
+
+.tl-text {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 68ch;
+}
+
+.chip {
+  font-size: 0.76rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 5px;
+  background: var(--void);
+  border: 1px solid rgba(46, 241, 255, 0.3);
+  color: var(--text-primary);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(46, 241, 255, 0.25);
+}
+
+@media (max-width: 640px) {
+  .timeline li { flex-direction: column; gap: 0.3rem; }
+  .tl-year { flex: none; }
+}
+
+/* --------------------------------------------------------------------------
    Info grid + stat cards
    -------------------------------------------------------------------------- */
 .info-grid {
