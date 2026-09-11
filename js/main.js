@@ -147,9 +147,9 @@ const PROJECTS = [
 ];
 
 const CATEGORY_ACCENT = {
-  released: "var(--cyan)",
-  active: "var(--magenta)",
-  dev: "var(--purple)",
+  released: { accent: "var(--cyan)", glow: "rgba(46, 241, 255, 0.35)", glowSoft: "rgba(46, 241, 255, 0.08)", badge: "badge-cyan" },
+  active: { accent: "var(--magenta)", glow: "rgba(255, 46, 230, 0.35)", glowSoft: "rgba(255, 46, 230, 0.08)", badge: "badge-magenta" },
+  dev: { accent: "var(--purple)", glow: "rgba(157, 78, 221, 0.35)", glowSoft: "rgba(157, 78, 221, 0.08)", badge: "badge-purple" },
 };
 
 function renderProjects() {
@@ -160,16 +160,19 @@ function renderProjects() {
     const grid = document.querySelector(`.grid[data-tab="${p.category}"]`);
     if (!grid) continue;
 
+    const c = CATEGORY_ACCENT[p.category];
     const card = document.createElement("div");
     card.className = "card";
-    card.style.setProperty("--accent", CATEGORY_ACCENT[p.category]);
+    card.style.setProperty("--accent", c.accent);
+    card.style.setProperty("--glow", c.glow);
+    card.style.setProperty("--glow-soft", c.glowSoft);
     card.tabIndex = 0;
     card.setAttribute("role", "button");
     card.setAttribute("aria-haspopup", "dialog");
     card.innerHTML = `
       <div class="card-head">
         <span class="card-title">${p.name}</span>
-        <span class="badge" style="--b:${CATEGORY_ACCENT[p.category]}">${p.badge}</span>
+        <span class="badge ${c.badge}">${p.badge}</span>
       </div>
       <p class="card-desc">${p.desc}</p>
     `;
@@ -212,7 +215,7 @@ const projectBackdrop = document.getElementById("modalBackdrop");
 
 function openProjectModal(p) {
   document.getElementById("modalBadge").innerHTML =
-    `<span class="badge" style="--b:${CATEGORY_ACCENT[p.category]}">${p.badge}</span>`;
+    `<span class="badge ${CATEGORY_ACCENT[p.category].badge}">${p.badge}</span>`;
   document.getElementById("modalTitle").textContent = p.name;
   document.getElementById("modalDesc").textContent = p.desc;
   document.getElementById("modalMeta").innerHTML =
