@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Cybercore System Panel">
+  <defs>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="4.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="coreFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2ee6"/>
+      <stop offset="0.55" stop-color="#c14dff"/>
+      <stop offset="1" stop-color="#2ef1ff"/>
+    </linearGradient>
+    <linearGradient id="hexStroke" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2ef1ff"/>
+      <stop offset="1" stop-color="#9d4edd"/>
+    </linearGradient>
+  </defs>
+
+  <!-- outer hexagon: the "panel" housing -->
+  <polygon points="128,20 224,74 224,182 128,236 32,182 32,74"
+           fill="#0a0614" stroke="url(#hexStroke)" stroke-width="6" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- radiating dial ticks — the "system" half of the mark -->
+  <g stroke="#ff5fa3" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <line x1="128" y1="20" x2="128" y2="44"/>
+    <line x1="224" y1="74" x2="203" y2="86"/>
+    <line x1="224" y1="182" x2="203" y2="170"/>
+    <line x1="128" y1="236" x2="128" y2="212"/>
+    <line x1="32" y1="182" x2="53" y2="170"/>
+    <line x1="32" y1="74" x2="53" y2="86"/>
+  </g>
+
+  <!-- inner rotated square: the "core" chassis -->
+  <rect x="88" y="88" width="80" height="80" rx="10" transform="rotate(45 128 128)"
+        fill="#0a0614" stroke="#ff2ee6" stroke-width="5" filter="url(#glow)"/>
+
+  <!-- the core itself, gradient-filled, pulsing bright -->
+  <circle cx="128" cy="128" r="26" fill="url(#coreFill)" filter="url(#glow)"/>
+  <circle cx="128" cy="128" r="9" fill="#0a0614"/>
+</svg>
