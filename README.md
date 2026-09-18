@@ -12,7 +12,7 @@ No build step — plain HTML/CSS/JS, deploys as-is via GitHub Pages.
 ```
 index.html          — single page: hero, overview, systems, about, connect
 assets/style.css     — theme (see :root custom properties for the palette)
-assets/logo.svg      — the hexagon/core mark (unique to this site)
+assets/logo.svg      — the Panel Grid mark (unique to this site)
 assets/icons/*.svg   — line icons (github, mail, external, close, hex, grid, terminal)
 assets/favicons/     — generated PNG favicons + favicon.ico
 js/main.js           — project data (PROJECTS array) + all interactivity
