@@ -109,6 +109,12 @@
           <div class="info-row"><span>LICENSE</span><span class="v-cyan">MIT</span></div>
         </div>
 
+        <p class="prompt" style="margin-top:1.75rem;">&gt; ./ecosystem --live</p>
+        <div class="info-grid" id="liveGrid">
+          <div class="info-row"><span>SYSTEMS TRACKED</span><span class="v-cyan">syncing&hellip;</span></div>
+        </div>
+        <p class="live-note" id="liveNote">contacting api.github.com&hellip;</p>
+
         <p class="prompt" style="margin-top:1.75rem;">&gt; ./status --modules</p>
         <div class="stat-grid" id="statGrid"><!-- filled by main.js --></div>
 
@@ -142,9 +148,9 @@
           <label for="tab-active">Active Dev <span class="count" id="cnt-active"></span></label>
           <label for="tab-dev">In Development <span class="count" id="cnt-dev"></span></label>
         </div>
-        <div class="tab-panel" id="panel-released"><div class="grid" data-tab="released"></div></div>
-        <div class="tab-panel" id="panel-active"><div class="grid" data-tab="active"></div></div>
-        <div class="tab-panel" id="panel-dev"><div class="grid" data-tab="dev"></div></div>
+        <div class="tab-panel" id="panel-released"><div class="grid" data-tab="released"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
+        <div class="tab-panel" id="panel-active"><div class="grid" data-tab="active"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
+        <div class="tab-panel" id="panel-dev"><div class="grid" data-tab="dev"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
       </div>
     </div>
   </section>

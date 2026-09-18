@@ -441,6 +441,13 @@ main, .topbar, footer { position: relative; z-index: 1; }
 .lede a { color: var(--pink); text-decoration: underline; }
 .lede strong { color: var(--text-primary); }
 
+.live-note {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+
 /* --------------------------------------------------------------------------
    About timeline + language chips
    -------------------------------------------------------------------------- */

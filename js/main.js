@@ -1,150 +1,29 @@
 // ============================================================
 // Cybercore System Panel — project data + interactions
-// No framework, no build step: plain DOM, one data array.
+// No framework, no build step: plain DOM.
+//
+// Systems data used to be a hand-maintained array here, which is exactly
+// why it drifted: half the "In Development" entries pointed at repos that
+// don't exist anymore, cybercore's language sat frozen on "Python" long
+// after it went Rust-first, and every "updated" date was whatever day
+// someone last remembered to touch this file. None of that can happen
+// once it's a live read of the GitHub API instead of a copy of it.
 // ============================================================
 
-const PROJECTS = [
-  {
-    id: "cyberdeck",
-    name: "cyberdeck",
-    category: "released",
-    badge: "Released · v1.0.0",
-    lang: "Rust",
-    updated: "2026-07-28",
-    desc: "The Ultimate Systems Intelligence Framework — a high-level layout system, configuration matrix, and theme compilation engine for advanced local environments. Feature-complete and production-ready as of v1.0.0.",
-    url: "https://github.com/darkstardevx/cyberdeck",
-  },
-  {
-    id: "cyberplug",
-    name: "cyberplug",
-    category: "active",
-    badge: "Active Dev",
-    lang: "Rust",
-    updated: "2026-09-11",
-    desc: "Rust TUI plugin manager for Omarchy's Quattro shell — discover, install, enable, and configure plugins from the bar, without leaving the keyboard. Ships as an Omarchy bar-widget plugin.",
-    url: "https://github.com/darkstardevx/cyberplug",
-  },
-  {
-    id: "cybercore",
-    name: "cybercore",
-    category: "active",
-    badge: "Active Dev",
-    lang: "Python",
-    updated: "2026-09-10",
-    desc: "The master definition repository of the Cybercore Systems Framework — the canonical CYBERGRID color palette, shared design tokens, and filesystem paths consumed by every downstream module.",
-    url: "https://github.com/darkstardevx/cybercore",
-  },
-  {
-    id: "ddrop",
-    name: "ddrop",
-    category: "active",
-    badge: "Active Dev",
-    lang: "Rust",
-    updated: "2026-06-26",
-    desc: "A high-performance, secure, and decentralized local file-sharing utility built with Rust.",
-    url: "https://github.com/darkstardevx/ddrop",
-  },
-  {
-    id: "hypr-audio-hud",
-    name: "hypr-audio-hud",
-    category: "active",
-    badge: "Active Dev",
-    lang: "Shell",
-    updated: "2026-06-18",
-    desc: "An interactive, cyberpunk terminal audio recording HUD designed specifically for Hyprland 0.55+ and Ghostty.",
-    url: "https://github.com/darkstardevx/hypr-audio-hud",
-  },
-  {
-    id: "cybervault",
-    name: "cybervault",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "High-performance configuration vault, cryptographic state synchronizer, and environment deployment machine.",
-    url: "https://github.com/darkstardevx/cybervault",
-  },
-  {
-    id: "cyberterm",
-    name: "cyberterm",
-    category: "dev",
-    badge: "In Dev",
-    lang: "Rust",
-    updated: "2026-07-06",
-    desc: "A highly customizable, scriptable terminal emulator built from the ground up in Rust, optimized for high-luminance diagnostic output.",
-    url: "https://github.com/darkstardevx/cyberterm",
-  },
-  {
-    id: "cyberview",
-    name: "cyberview",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "High-speed, minimalist, keyboard-centric image viewer built following modern sxiv conventions.",
-    url: "https://github.com/darkstardevx/cyberview",
-  },
-  {
-    id: "cybertest",
-    name: "cybertest",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "Streamlined security validation harness, local configuration scanner, and penetration testing engine.",
-    url: "https://github.com/darkstardevx/cybertest",
-  },
-  {
-    id: "cybershell",
-    name: "cybershell",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "Performance-tuned shell configuration toolkit and dynamic layout compilation workspace.",
-    url: "https://github.com/darkstardevx/cybershell",
-  },
-  {
-    id: "cybermeta",
-    name: "cybermeta",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "High-capacity EXIF metadata processor and deep image telemetry parser.",
-    url: "https://github.com/darkstardevx/cybermeta",
-  },
-  {
-    id: "cyberkit",
-    name: "cyberkit",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "Highly modular Open Source Intelligence (OSINT) gathering and reconnaissance suite.",
-    url: "https://github.com/darkstardevx/cyberkit",
-  },
-  {
-    id: "cybergtk",
-    name: "cybergtk",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "GTK theme asset processing pipeline and unified layout synchronization tools.",
-    url: "https://github.com/darkstardevx/cybergtk",
-  },
-  {
-    id: "cyberdev",
-    name: "cyberdev",
-    category: "dev",
-    badge: "In Dev",
-    lang: "—",
-    updated: "2026-07-06",
-    desc: "Custom automation layout compiler, scripting tools, and optimized system development toolkit.",
-    url: "https://github.com/darkstardevx/cyberdev",
-  },
-];
+const OWNER = "darkstardevx";
+
+// Real repos, not "systems" — the profile README repo (must be named
+// exactly <user>/<user> for GitHub's profile feature), this site's own
+// repo, and cyberplug's marketplace packaging wrapper (a build artifact
+// of cyberplug, not a distinct product).
+const EXCLUDED_REPOS = new Set(["darkstardevx", "darkstardevx.github.io", "cyberplug-bar-widget"]);
+
+// No tags yet but pushed within this window = "Active Dev"; older = "In
+// Development". Having any tag at all = "Released" — a cut version is a
+// real milestone a recency window can't fake.
+const ACTIVE_WINDOW_DAYS = 30;
+
+const CACHE_KEY = "cybercore-ecosystem-cache-v1";
 
 const CATEGORY_ACCENT = {
   released: { accent: "var(--cyan)", glow: "rgba(46, 241, 255, 0.35)", glowSoft: "rgba(46, 241, 255, 0.08)", badge: "badge-cyan" },
@@ -152,10 +31,146 @@ const CATEGORY_ACCENT = {
   dev: { accent: "var(--purple)", glow: "rgba(157, 78, 221, 0.35)", glowSoft: "rgba(157, 78, 221, 0.08)", badge: "badge-purple" },
 };
 
-function renderProjects() {
+// ------------------------------------------------------------
+// Time helpers
+// ------------------------------------------------------------
+function daysSince(iso) {
+  return (Date.now() - new Date(iso).getTime()) / 86400000;
+}
+
+function relativeTime(iso) {
+  const ms = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(ms / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months}mo ago`;
+  return `${Math.floor(months / 12)}y ago`;
+}
+
+// ------------------------------------------------------------
+// Live GitHub data
+// ------------------------------------------------------------
+async function fetchJSON(url) {
+  const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+  if (!res.ok) throw new Error(`GitHub API ${res.status} on ${url}`);
+  return res.json();
+}
+
+async function loadEcosystem() {
+  const repos = await fetchJSON(
+    `https://api.github.com/users/${OWNER}/repos?type=owner&per_page=100&sort=pushed`
+  );
+  const systemRepos = repos.filter((r) => !r.fork && !r.archived && !EXCLUDED_REPOS.has(r.name));
+
+  // One tags call per system repo, in parallel — tag presence is the
+  // signal for "released" (see ACTIVE_WINDOW_DAYS comment above), and
+  // doubles as the version string shown on the badge.
+  const withTags = await Promise.all(
+    systemRepos.map(async (repo) => {
+      let tags = [];
+      try {
+        tags = await fetchJSON(`https://api.github.com/repos/${OWNER}/${repo.name}/tags`);
+      } catch (_) {
+        // Missing tags shouldn't break the whole page — worst case this
+        // repo is classified by recency instead of by release.
+      }
+      return { repo, tags };
+    })
+  );
+
+  const projects = withTags.map(({ repo, tags }) => {
+    let category, badge;
+    if (tags.length > 0) {
+      category = "released";
+      badge = `Released · ${tags[0].name}`;
+    } else if (daysSince(repo.pushed_at) <= ACTIVE_WINDOW_DAYS) {
+      category = "active";
+      badge = "Active Dev";
+    } else {
+      category = "dev";
+      badge = "In Development";
+    }
+    return {
+      id: repo.name,
+      name: repo.name,
+      category,
+      badge,
+      lang: repo.language || "—",
+      updated: repo.pushed_at.slice(0, 10),
+      updatedRel: relativeTime(repo.pushed_at),
+      desc: repo.description || "No description yet.",
+      url: repo.html_url,
+      stars: repo.stargazers_count,
+      issues: repo.open_issues_count,
+    };
+  });
+
+  projects.sort((a, b) => (a.updated < b.updated ? 1 : -1));
+
+  const langTally = {};
+  for (const p of projects) {
+    if (p.lang === "—") continue;
+    langTally[p.lang] = (langTally[p.lang] || 0) + 1;
+  }
+
+  const stats = {
+    repoCount: projects.length,
+    totalStars: projects.reduce((s, p) => s + p.stars, 0),
+    totalIssues: projects.reduce((s, p) => s + p.issues, 0),
+    lastPush: projects[0] || null, // already sorted newest-first
+    langTally: Object.entries(langTally).sort((a, b) => b[1] - a[1]),
+  };
+
+  return { projects, stats };
+}
+
+function readCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeCache(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+  } catch (_) {
+    // Private browsing / storage disabled — fine, this is a convenience
+    // fallback, not a requirement.
+  }
+}
+
+async function getEcosystemData() {
+  try {
+    const data = await loadEcosystem();
+    writeCache(data);
+    return { data, stale: false };
+  } catch (err) {
+    console.warn("[ecosystem] live GitHub fetch failed, falling back to cache:", err);
+    const cached = readCache();
+    if (cached) return { data: cached.data, stale: true, cachedAt: cached.ts };
+    throw err;
+  }
+}
+
+// ------------------------------------------------------------
+// Rendering
+// ------------------------------------------------------------
+function renderProjects(projects) {
   const counts = { released: 0, active: 0, dev: 0 };
 
-  for (const p of PROJECTS) {
+  for (const container of document.querySelectorAll(".grid[data-tab]")) {
+    container.innerHTML = "";
+  }
+
+  for (const p of projects) {
     counts[p.category]++;
     const grid = document.querySelector(`.grid[data-tab="${p.category}"]`);
     if (!grid) continue;
@@ -205,6 +220,70 @@ function renderProjects() {
       </div>`
     )
     .join("");
+
+  // Re-run tilt on the freshly-built cards — VanillaTilt only wires up
+  // elements that exist at init() time, and these didn't exist until now.
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (window.VanillaTilt && !prefersReducedMotion) {
+    VanillaTilt.init(document.querySelectorAll(".grid[data-tab] .card"), {
+      max: 8,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.15,
+      scale: 1.02,
+      perspective: 900,
+    });
+  }
+}
+
+function renderLiveGrid(stats, meta) {
+  const grid = document.getElementById("liveGrid");
+  if (!grid) return;
+
+  const topLangs = stats.langTally
+    .slice(0, 3)
+    .map(([lang, n]) => `${lang} (${n})`)
+    .join(" · ") || "—";
+
+  const rows = [
+    ["SYSTEMS TRACKED", stats.repoCount],
+    ["TOTAL STARS", stats.totalStars],
+    ["OPEN ISSUES", stats.totalIssues],
+    ["LAST PUSH", stats.lastPush ? `${stats.lastPush.updatedRel} · ${stats.lastPush.name}` : "—"],
+    ["TOP LANGUAGES", topLangs],
+  ];
+
+  grid.innerHTML = rows
+    .map(([label, value]) => `<div class="info-row"><span>${label}</span><span class="v-cyan">${value}</span></div>`)
+    .join("");
+
+  const note = document.getElementById("liveNote");
+  if (note) {
+    note.textContent = meta.stale
+      ? `cached snapshot (github.com unreachable) · saved ${relativeTime(new Date(meta.cachedAt).toISOString())}`
+      : "live from api.github.com just now";
+  }
+}
+
+function renderEcosystemError() {
+  const grid = document.getElementById("liveGrid");
+  if (grid) {
+    grid.innerHTML = `<div class="info-row"><span>STATUS</span><span class="v-cyan">Couldn't reach api.github.com — <a href="https://github.com/${OWNER}?tab=repositories" target="_blank" rel="noopener" style="color:var(--cyan);">browse repos directly ↗</a></span></div>`;
+  }
+  for (const container of document.querySelectorAll(".grid[data-tab]")) {
+    container.innerHTML = `<p class="card-desc">Couldn't load live systems data. <a href="https://github.com/${OWNER}?tab=repositories" target="_blank" rel="noopener" style="color:var(--cyan);">Browse the repos on GitHub instead ↗</a></p>`;
+  }
+}
+
+async function initEcosystem() {
+  try {
+    const { data, stale, cachedAt } = await getEcosystemData();
+    renderProjects(data.projects);
+    renderLiveGrid(data.stats, { stale, cachedAt });
+  } catch (err) {
+    console.error("[ecosystem] no live data and no cache available:", err);
+    renderEcosystemError();
+  }
 }
 
 // ------------------------------------------------------------
@@ -218,8 +297,12 @@ function openProjectModal(p) {
     `<span class="badge ${CATEGORY_ACCENT[p.category].badge}">${p.badge}</span>`;
   document.getElementById("modalTitle").textContent = p.name;
   document.getElementById("modalDesc").textContent = p.desc;
-  document.getElementById("modalMeta").innerHTML =
-    `<div>LANG <span>${p.lang}</span></div><div>UPDATED <span>${p.updated}</span></div>`;
+  document.getElementById("modalMeta").innerHTML = `
+    <div>LANG <span>${p.lang}</span></div>
+    <div>UPDATED <span>${p.updatedRel}</span></div>
+    <div>STARS <span>${p.stars}</span></div>
+    <div>OPEN ISSUES <span>${p.issues}</span></div>
+  `;
   document.getElementById("modalLink").href = p.url;
   openModal(projectModal, projectBackdrop);
 }
@@ -284,14 +367,14 @@ drawerBackdrop.addEventListener("click", closeDrawer);
 document.querySelectorAll(".drawer-link").forEach((a) => a.addEventListener("click", closeDrawer));
 
 // ------------------------------------------------------------
-renderProjects();
+initEcosystem();
 
 // ------------------------------------------------------------
-// Futuristic touch: cursor-tracked 3D tilt + glare on every card. Runs
-// after renderProjects() so the dynamically-built Systems cards are in the
-// DOM too, not just the static Connect/Support ones. Skips cleanly if the
-// CDN script failed to load or the visitor prefers reduced motion — the
-// plain CSS glow/lift-free hover in style.css still works either way.
+// Futuristic touch: cursor-tracked 3D tilt + glare on every card. The
+// Connect/Support cards exist at load time, so they're wired here; the
+// dynamically-built Systems cards don't exist yet (initEcosystem() above
+// is async and hasn't resolved) — they get the same treatment inside
+// renderProjects() once they're actually in the DOM.
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (window.VanillaTilt && !prefersReducedMotion) {
