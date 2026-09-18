@@ -498,6 +498,7 @@ main, .topbar, footer { position: relative; z-index: 1; }
   background: var(--void);
   border: 1px solid rgba(46, 241, 255, 0.3);
   color: var(--text-primary);
+  text-decoration: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .chip:hover {
