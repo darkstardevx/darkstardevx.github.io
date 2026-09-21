@@ -1,383 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cybercore System Panel — darkstardevx</title>
-<meta name="description" content="darkstardevx / Cybercore Tech — a directory of the Cybercore Systems ecosystem: Rust-built terminal tooling, dashboards, and Omarchy plugins.">
-
-<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/icon-32.png">
-<link rel="shortcut icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="assets/favicons/icon-180.png">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>darkstardevx — systems, tools, and signal</title>
+  <meta name="description" content="darkstardevx builds practical Rust-first systems tools, Omarchy interfaces, and the Cybercore ecosystem. Thirty years of diagnostics, reverse engineering, and making things work.">
+  <meta property="og:title" content="darkstardevx — systems, tools, and signal">
+  <meta property="og:description" content="Rust-first systems tools, Omarchy interfaces, and a lifetime of taking things apart to understand them.">
+  <meta property="og:image" content="https://darkstardevx.github.io/assets/home/social-card.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/home/darkstar-mark.svg">
+  <link rel="apple-touch-icon" href="assets/home/darkstar-mark-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="identity" href="#top" aria-label="darkstardevx home">
+      <img src="assets/home/darkstar-mark.svg" alt="" class="identity-mark">
+      <span><b>darkstardevx</b><small>systems / signal / craft</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#systems">Systems</a><a href="#about">About</a><a href="#connect">Connect</a>
+      <a class="nav-github" href="https://github.com/darkstardevx" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+    </nav>
+    <button class="menu-button" id="menuBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span></button>
+  </header>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#systems">Systems <span>01</span></a><a href="#about">About <span>02</span></a><a href="#connect">Connect <span>03</span></a><a href="https://github.com/darkstardevx" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
 
-<!-- ============================================================
-     BACKDROP LAYERS — scanlines + neon blooms, fixed behind everything
-     ============================================================ -->
-<div class="bg-scanlines" aria-hidden="true"></div>
-<div class="bg-glow" aria-hidden="true"></div>
-<div id="tsparticles" aria-hidden="true"></div>
-
-<!-- ============================================================
-     NAV
-     ============================================================ -->
-<header class="topbar">
-  <a href="#top" class="brand">
-    <img src="assets/logo.svg" alt="" class="brand-mark">
-    <span class="brand-word">CYBERCORE<span class="brand-word-accent">//PANEL</span></span>
-  </a>
-
-  <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
-    <span></span><span></span><span></span>
-  </button>
-</header>
-
-<!-- Drawer + backdrop for mobile / hamburger nav -->
-<div class="drawer-backdrop" id="drawerBackdrop"></div>
-<nav class="drawer" id="drawer" aria-label="Menu">
-  <button class="drawer-close" id="drawerClose" aria-label="Close menu">
-    <img src="assets/icons/close.svg" alt="">
-  </button>
-  <div class="drawer-tag">📁 SYSTEM_NAV</div>
-  <ul class="drawer-nav">
-    <li><a href="#overview" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
-    </span> Overview</a></li>
-    <li><a href="#systems" class="drawer-link" style="--tint:var(--magenta);"><span class="dl-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
-    </span> Systems</a></li>
-    <li><a href="#about" class="drawer-link" style="--tint:var(--purple);"><span class="dl-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
-    </span> About</a></li>
-    <li><a href="#connect" class="drawer-link" style="--tint:var(--pink);"><span class="dl-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
-    </span> Connect</a></li>
-    <li><a href="#support" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 6.2c0-.66.54-1.2 1.2-1.2h5.1l2 2.2h8.5c.66 0 1.2.54 1.2 1.2v10.4c0 .66-.54 1.2-1.2 1.2H4.2c-.66 0-1.2-.54-1.2-1.2Z"/></svg>
-    </span> Support</a></li>
-  </ul>
-  <div class="drawer-divider"></div>
-  <ul class="drawer-nav">
-    <li><a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--cyan);"><span class="dl-emoji">🐙</span> GitHub ↗</a></li>
-    <li><a href="https://subgridsec.org" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--purple);"><span class="dl-emoji">🌐</span> subgridsec.org ↗</a></li>
-    <li><a href="https://github.com/sponsors/darkstardevx" target="_blank" rel="noopener" class="drawer-link" style="--tint:var(--pink);"><span class="dl-emoji">💛</span> Sponsor ↗</a></li>
-  </ul>
-</nav>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<main id="top">
-  <section class="hero">
-    <img src="assets/logo.svg" alt="" class="hero-mark" data-aos="zoom-in" data-aos-duration="700">
-    <h1 data-aos="fade-up" data-aos-delay="100">CYBERCORE <span class="grad">SYSTEM PANEL</span></h1>
-    <p class="hero-tagline" data-aos="fade-up" data-aos-delay="200">
-      Directory node for the Cybercore Systems ecosystem — Rust-built terminal
-      tooling, dashboards, and Omarchy plugins, maintained by
-      <strong>darkstardevx</strong>.
-    </p>
-    <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
-      <a href="#systems" class="btn btn-primary">Browse Systems</a>
-      <a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="btn btn-ghost">
-        GitHub <img src="assets/icons/external.svg" alt="" class="btn-ext"></a>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       OVERVIEW
-       ============================================================ -->
-  <section class="section" id="overview">
-    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
-      <div class="titlebar">
-        <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
-        <span class="titlebar-text">system_info.sys</span>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span> DARKSTARDEVX / FIELD NOTES 01</p>
+        <h1 id="hero-title">Build it.<br><em>Understand it.</em><br>Make it run.</h1>
+        <p class="hero-intro">Rust-first systems tools, Omarchy interfaces, and practical software shaped by a lifetime of diagnostics, reverse engineering, and taking things apart to see what makes them work.</p>
+        <div class="hero-actions"><a class="button button-solid" href="#systems">Explore the systems <span>↓</span></a><a class="button button-line" href="https://github.com/darkstardevx" target="_blank" rel="noopener">Open GitHub <span>↗</span></a></div>
       </div>
-      <div class="panel-body">
-        <p class="prompt">&gt; cat /etc/cybercore-release</p>
-        <div class="info-grid">
-          <div class="info-row"><span>FRAMEWORK</span><span class="v-cyan">CYBERCORE SYSTEMS</span></div>
-          <div class="info-row"><span>MAINTAINER</span><span class="v-cyan">darkstardevx</span></div>
-          <div class="info-row"><span>LICENSE</span><span class="v-cyan">MIT</span></div>
-        </div>
+      <div class="hero-index"><p>Current signal</p><strong>RUST <i>·</i> LUA <i>·</i> OMARCHY</strong><span>ARCH / BTRFS / DIAGNOSTICS</span></div>
+      <div class="hero-coordinate">45° 31′ 11″ N<br>systems in motion</div>
+    </section>
 
-        <p class="prompt" style="margin-top:1.75rem;">&gt; ./ecosystem --live</p>
-        <div class="info-grid" id="liveGrid">
-          <div class="info-row"><span>SYSTEMS TRACKED</span><span class="v-cyan">syncing&hellip;</span></div>
-        </div>
-        <p class="live-note" id="liveNote">contacting api.github.com&hellip;</p>
+    <section class="section overview" id="overview" aria-labelledby="overview-title">
+      <div class="section-heading"><p class="eyebrow">01 / THE WORKBENCH</p><h2 id="overview-title">A small ecosystem,<br><em>built with intention.</em></h2></div>
+      <div class="overview-grid"><p class="section-lede">Cybercore is a growing family of tools for network work, crypto and secrets, security auditing, terminal workflows, and the interfaces that make all of it usable. Every project starts with a real problem and earns its place by working in the real world.</p><div class="signal-note"><span class="note-line"></span><p>“The tool in your hand doesn’t make the diagnosis. You do.”</p><small>A lesson from three decades in the shop</small></div></div>
+      <div class="stat-strip" id="statGrid" aria-live="polite"><div><strong>—</strong><span>systems tracked</span></div><div><strong>—</strong><span>released</span></div><div><strong>—</strong><span>in motion</span></div><div><strong>syncing</strong><span>GitHub signal</span></div></div>
+    </section>
 
-        <p class="prompt" style="margin-top:1.75rem;">&gt; langs --active</p>
-        <div class="chip-row">
-          <a class="chip" href="https://www.rust-lang.org/" target="_blank" rel="noopener">Rust</a>
-          <a class="chip" href="https://www.lua.org/" target="_blank" rel="noopener">Lua</a>
-          <a class="chip" href="https://quickshell.outfoxxed.me/" target="_blank" rel="noopener">Quickshell</a>
-          <a class="chip" href="https://doc.qt.io/qt-6/qmlapplications.html" target="_blank" rel="noopener">QML</a>
-          <a class="chip" href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
-        </div>
+    <section class="section systems-section" id="systems" aria-labelledby="systems-title">
+      <div class="section-heading heading-row"><div><p class="eyebrow">02 / SYSTEMS INDEX</p><h2 id="systems-title">Tools with a job<br><em>to do.</em></h2></div><p class="heading-aside">Live from the public forge.<br>Open a card for the field notes.</p></div>
+      <div class="system-controls" role="tablist" aria-label="Filter projects"><button class="filter is-active" data-filter="all" role="tab" aria-selected="true">All <span id="cnt-all">—</span></button><button class="filter" data-filter="released" role="tab" aria-selected="false">Released <span id="cnt-released">—</span></button><button class="filter" data-filter="active" role="tab" aria-selected="false">Active <span id="cnt-active">—</span></button><button class="filter" data-filter="dev" role="tab" aria-selected="false">In development <span id="cnt-dev">—</span></button></div>
+      <div class="project-grid" id="projectGrid"><div class="project-empty">Reading the current signal from GitHub…</div></div><p class="sync-note" id="liveNote">contacting api.github.com…</p>
+    </section>
 
-        <p class="prompt" style="margin-top:1.75rem;">&gt; ./status --modules</p>
-        <div class="stat-grid" id="statGrid"><!-- filled by main.js --></div>
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="about-card"><div class="about-topline"><p class="eyebrow">03 / FIELD GUIDE</p><span>PROFILE / 52 / GEN X</span></div><div class="about-grid"><div class="about-lead"><h2 id="about-title">Curiosity is<br><em>the original tool.</em></h2><p class="dropcap">Before I wrote code, I took things apart. My dad encouraged that. I hated computers in high school—I was busy with thrash metal and guitar—but anything with a case screwed shut or a “view source” option eventually got my attention.</p><p>In 1995, that instinct found a new language. Three decades of automotive diagnostics, reverse engineering, and software have taught me to stay with the problem until the system is fixed, complete, and operational.</p><button class="text-button" id="openStatement">Read the full statement <span>↗</span></button></div><div class="timeline-wrap"><p class="mini-label">TIMELINE.LOG</p><ol class="timeline"><li><time>1995</time><p>Started coding and reverse-engineering—PCs, websites, and system code.</p></li><li><time>2000s</time><p>Ran a web design company and a small network install/setup business. Built and sold custom PCs.</p></li><li><time>2010–14</time><p>Shipped custom Android ROMs through the XDA era; Java, smali, Dalvik, and APK tooling.</p></li><li><time>2015</time><p>Node.js apps—sockets, raw HTTP, npm.</p></li><li><time>Now</time><p>Rust and Lua, Quickshell/QML for Omarchy, and HTML/CSS for these dashboards.</p></li></ol></div></div><div class="about-bottom"><div><span class="mini-label">LANGUAGES</span><p>Rust · Python · C++ · Lua · QML · HTML · CSS · JavaScript · Bash</p></div><div><span class="mini-label">SYSTEMS</span><p>Arch · Omarchy · Debian · Ubuntu · BTRFS snapshots</p></div><div class="music-note"><span class="mini-label">ORIGINAL SIGNAL</span><p>🎸 Guitar / thrash metal / music first</p></div></div></div>
+    </section>
 
-        <p class="lede">
-          A one-person, non-commercial ecosystem of Rust-first systems tools —
-          terminal dashboards, an Omarchy plugin family, and the shared
-          design/config core they all build on. Some modules are shipped and
-          stable; most are actively moving. Click into
-          <a href="#systems">Systems</a> for the current state of each.
-        </p>
-      </div>
-    </div>
-  </section>
+    <section class="section connect-section" id="connect" aria-labelledby="connect-title"><div class="section-heading"><p class="eyebrow">04 / OPEN CHANNEL</p><h2 id="connect-title">Find the source.<br><em>Stay curious.</em></h2></div><div class="connect-grid"><a class="connect-card" href="https://github.com/darkstardevx" target="_blank" rel="noopener"><span class="card-kicker">PRIMARY FORGE</span><strong>GitHub <b>↗</b></strong><p>Source, releases, experiments, and the full project index.</p></a><a class="connect-card" href="https://subgridsec.org" target="_blank" rel="noopener"><span class="card-kicker">SIBLING NODE</span><strong>subgridsec.org <b>↗</b></strong><p>The wider Cybercore framework and security-facing work.</p></a><a class="connect-card" href="mailto:darkstardevx@gmail.com"><span class="card-kicker">DIRECT LINE</span><strong>Email <b>↗</b></strong><p>darkstardevx@gmail.com</p></a></div></section>
+  </main>
 
-  <!-- ============================================================
-       SYSTEMS
-       ============================================================ -->
-  <section class="section" id="systems">
-    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
-      <div class="titlebar">
-        <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
-        <span class="titlebar-text">systems_matrix.sys</span>
-      </div>
+  <footer><span>© 2026 darkstardevx / Cybercore Tech</span><span>Architected, styled, and reviewed by hand.</span><span><a href="https://github.com/darkstardevx" target="_blank" rel="noopener">GitHub ↗</a></span></footer>
 
-      <div class="tabs" id="tabs">
-        <input type="radio" name="tab" id="tab-released" checked>
-        <input type="radio" name="tab" id="tab-active">
-        <input type="radio" name="tab" id="tab-dev">
-        <div class="tabs-header">
-          <label for="tab-released">Released <span class="count" id="cnt-released"></span></label>
-          <label for="tab-active">Active Dev <span class="count" id="cnt-active"></span></label>
-          <label for="tab-dev">In Development <span class="count" id="cnt-dev"></span></label>
-        </div>
-        <div class="tab-panel" id="panel-released"><div class="grid" data-tab="released"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
-        <div class="tab-panel" id="panel-active"><div class="grid" data-tab="active"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
-        <div class="tab-panel" id="panel-dev"><div class="grid" data-tab="dev"><p class="card-desc">Syncing with GitHub&hellip;</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       ABOUT
-       ============================================================ -->
-  <section class="section" id="about">
-    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
-      <div class="titlebar">
-        <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
-        <span class="titlebar-text">about.sys</span>
-      </div>
-      <div class="panel-body">
-        <p class="prompt">&gt; whoami</p>
-        <p class="lede">
-          I've been taking things apart to see how they work since I could
-          walk — PCs, websites, system code, whatever had a case screwed
-          shut or a "view source" option. 30+ years as an automotive
-          technician — electrical diagnostics, LAN/CAN bus systems, ECM
-          reprogramming — taught me the tool in your hand doesn't make the
-          diagnosis, you do. Same rule applies here.
-        </p>
-
-        <p class="prompt" style="margin-top:1.75rem;">&gt; cat timeline.log</p>
-        <ul class="timeline">
-          <li>
-            <span class="tl-year">1995</span>
-            <span class="tl-text">Started coding and reverse-engineering — PCs, websites, system code.</span>
-          </li>
-          <li>
-            <span class="tl-year">2000s</span>
-            <span class="tl-text">Ran a web design shop and a small network install/setup business on the side. Built and sold custom PCs.</span>
-          </li>
-          <li>
-            <span class="tl-year">2010&ndash;14</span>
-            <span class="tl-text">Deep in custom Android ROM development — active on XDA Developers, shipped a few ROMs built from vanilla Android. Learned Java (Kotlin came later), got intimately familiar with smali and Dalvik the hard way, built APKs: ROM tools, network utilities, superuser tooling.</span>
-          </li>
-          <li>
-            <span class="tl-year">Along the way</span>
-            <span class="tl-text">Node.js apps — sockets, raw HTTP, npm.</span>
-          </li>
-          <li>
-            <span class="tl-year">Now</span>
-            <span class="tl-text">Rust and Lua day-to-day, plus Quickshell/QML for Omarchy shell tooling and HTML/CSS for these dashboards. Kicking the tires on htmx.</span>
-          </li>
-        </ul>
-
-        <p class="prompt" style="margin-top:1.75rem;">&gt; langs --all</p>
-        <div class="chip-row">
-          <span class="chip">HTML</span>
-          <span class="chip">CSS</span>
-          <span class="chip">JavaScript</span>
-          <span class="chip">C++</span>
-          <span class="chip">Python</span>
-          <span class="chip">Java</span>
-          <span class="chip">Kotlin</span>
-          <span class="chip">Lua</span>
-          <span class="chip">Bash</span>
-          <span class="chip">Rust</span>
-        </div>
-
-        <p class="lede" style="margin-top:1.75rem;">
-          Everything on this site — and everything it links to — is
-          architected, styled, and reviewed by hand; AI assistance handles
-          grunt work, not decisions. Working smart isn't a shortcut — it's
-          the point.
-        </p>
-        <button class="btn btn-ghost" id="openStatement">Read the full statement</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       CONNECT
-       ============================================================ -->
-  <section class="section" id="connect">
-    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
-      <div class="titlebar">
-        <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
-        <span class="titlebar-text">connect.sys</span>
-      </div>
-      <div class="panel-body">
-        <div class="grid">
-          <a href="https://github.com/darkstardevx" target="_blank" rel="noopener" class="card-link">
-            <div class="card" style="--accent:var(--cyan); --glow:rgba(46,241,255,.35); --glow-soft:rgba(46,241,255,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/github.svg" alt=""> GitHub</span>
-                <span class="badge badge-cyan">Primary Forge</span>
-              </div>
-              <p class="card-desc">Every public repo in this ecosystem, source-of-truth.</p>
-            </div>
-          </a>
-          <div class="card" style="--accent:var(--pink); --glow:rgba(255,95,163,.35); --glow-soft:rgba(255,95,163,.08); cursor:default;">
-            <div class="card-head">
-              <span class="card-title"><img src="assets/icons/mail.svg" alt=""> Email</span>
-              <span class="badge badge-pink">Direct</span>
-            </div>
-            <p class="card-desc">
-              <a href="mailto:darkstardevx@gmail.com" style="color:var(--text-primary); text-decoration:underline;">darkstardevx@gmail.com</a>
-              <br>
-              <span style="color:var(--text-dim); font-size:0.78rem;">backup:</span>
-              <a href="mailto:cybercore.sh@gmail.com" style="color:var(--text-muted); text-decoration:underline;">cybercore.sh@gmail.com</a>
-            </p>
-          </div>
-          <a href="https://subgridsec.org" target="_blank" rel="noopener" class="card-link">
-            <div class="card" style="--accent:var(--purple); --glow:rgba(157,78,221,.35); --glow-soft:rgba(157,78,221,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/external.svg" alt=""> subgridsec.org</span>
-                <span class="badge badge-purple">Sibling Node</span>
-              </div>
-              <p class="card-desc">Repository matrix for the wider Cybercore framework.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SUPPORT
-       ============================================================ -->
-  <section class="section" id="support">
-    <div class="terminal-window" data-aos="fade-up" data-aos-duration="600">
-      <div class="titlebar">
-        <span class="dot dot-magenta"></span><span class="dot dot-purple"></span><span class="dot dot-cyan"></span>
-        <span class="titlebar-text">infrastructure_support.fund</span>
-      </div>
-      <div class="panel-body">
-        <p class="lede">
-          Thank you for considering supporting this work. To be completely
-          transparent: any support received through sponsorships or
-          donations is <strong>not-for-profit</strong>. It isn't income —
-          it goes directly to the operational overhead and infrastructure
-          costs of keeping these projects running.
-        </p>
-        <p class="lede" style="margin-top:1rem;"><strong>Where it goes:</strong></p>
-        <ul class="support-list">
-          <li>Server &amp; hosting space for active projects and documentation</li>
-          <li>Cloudflare — DNS, security, CDN</li>
-          <li>Storage &amp; backup archives</li>
-          <li>Email &amp; domain services</li>
-          <li>System maintenance &amp; upgrades</li>
-        </ul>
-        <p class="lede" style="margin-top:0.75rem; font-style:italic;">
-          Every contribution directly offsets out-of-pocket costs and keeps the lights on. Genuinely appreciated.
-        </p>
-
-        <div class="grid" style="margin-top:1.5rem;">
-          <a href="https://github.com/sponsors/darkstardevx" target="_blank" rel="noopener" class="card-link">
-            <div class="card" style="--accent:var(--cyan); --glow:rgba(46,241,255,.35); --glow-soft:rgba(46,241,255,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/github.svg" alt=""> GitHub Sponsors</span>
-                <span class="badge badge-cyan">Sponsor</span>
-              </div>
-              <p class="card-desc">Recurring or one-time, straight through GitHub.</p>
-            </div>
-          </a>
-          <a href="https://buymeacoffee.com/darkstardevx" target="_blank" rel="noopener" class="card-link">
-            <div class="card" style="--accent:var(--magenta); --glow:rgba(255,46,230,.35); --glow-soft:rgba(255,46,230,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/external.svg" alt=""> Buy Me a Coffee</span>
-                <span class="badge badge-magenta">Fuel Station</span>
-              </div>
-              <p class="card-desc">Direct contribution toward caffeine and server upkeep.</p>
-            </div>
-          </a>
-          <a href="https://paypal.me/elementxdesign" target="_blank" rel="noopener" class="card-link">
-            <div class="card" style="--accent:var(--purple); --glow:rgba(157,78,221,.35); --glow-soft:rgba(157,78,221,.08);">
-              <div class="card-head">
-                <span class="card-title"><img src="assets/icons/external.svg" alt=""> PayPal</span>
-                <span class="badge badge-purple">Direct Fund</span>
-              </div>
-              <p class="card-desc">Secure direct-transfer support.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 Cybercore Tech — darkstardevx. MIT licensed. Built independently; no affiliation with any external security vendor or defense contractor.</p>
-  </footer>
-</main>
-
-<!-- ============================================================
-     PROJECT DETAIL MODAL (populated by main.js)
-     ============================================================ -->
-<div class="modal-backdrop" id="modalBackdrop"></div>
-<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <button class="modal-close" id="modalClose" aria-label="Close"><img src="assets/icons/close.svg" alt=""></button>
-  <div class="modal-badge" id="modalBadge"></div>
-  <h3 id="modalTitle"></h3>
-  <p id="modalDesc"></p>
-  <div class="modal-meta" id="modalMeta"></div>
-  <a href="#" target="_blank" rel="noopener" class="btn btn-primary" id="modalLink">View repository ↗</a>
-</div>
-
-<!-- ============================================================
-     STATEMENT MODAL
-     ============================================================ -->
-<div class="modal-backdrop" id="statementBackdrop"></div>
-<div class="modal modal-wide" id="statementModal" role="dialog" aria-modal="true" aria-labelledby="statementTitle">
-  <button class="modal-close" id="statementClose" aria-label="Close"><img src="assets/icons/close.svg" alt=""></button>
-  <h3 id="statementTitle">A note on how this gets built</h3>
-  <div class="statement-body">
-    <p>I use AI assistance to help build and maintain these projects, and it shows up in the commit history on the ones that are public. I'm not going to pretend otherwise, and I'm not going to bury it either.</p>
-    <p><strong>What's mine:</strong> the idea for each tool, what it should look and feel like, what's worth building versus scope creep, and when something's actually done versus just compiling. I spent 30+ years as an auto tech before this — the one thing that trade teaches you cold is that the tool in your hand doesn't make the diagnosis. You do. I also run this stuff for real before calling it finished; real bugs get caught by using the tool, not by reading the code.</p>
-    <p><strong>What the AI does:</strong> grunt work — boilerplate, refactors, hardening review, docs that match what the code actually does. A second set of eyes that doesn't get tired at 1am. I don't ship what I don't understand.</p>
-    <p><strong>Why say it:</strong> I'd rather you know going in than find out later. Working smart isn't a shortcut — it's the point. Judge the code; that's always been the right way to do it anyway.</p>
-    <p class="statement-sign">— darkstardevx</p>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js" defer></script>
-<script src="js/main.js" defer></script>
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <dialog class="project-modal" id="projectModal" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Close project details">×</button><p class="eyebrow" id="modalBadge"></p><h3 id="modalTitle"></h3><p id="modalDesc"></p><div class="modal-meta" id="modalMeta"></div><a class="button button-solid" id="modalLink" href="#" target="_blank" rel="noopener">View repository ↗</a></dialog>
+  <dialog class="statement-modal" id="statementModal" aria-labelledby="statementTitle"><button class="modal-close" id="statementClose" aria-label="Close statement">×</button><p class="eyebrow">FIELD NOTE / FULL STATEMENT</p><h3 id="statementTitle">The work is mine. The tools are many.</h3><div class="statement-body"><p>I’m a 52-year-old Gen X builder who grew up in the 80s and 90s. Before 1995, I mostly just liked taking things apart to see what was inside. My dad encouraged that curiosity. I hated computers in high school—I was into thrash metal, playing guitar, and music is still my number-one love, with computers right beside it.</p><p>Then came 1995: AOL, CompuServe, Mosaic, Netscape, and the first real pull toward code. Anything with a case screwed shut or a “view source” option caught my attention. That instinct became a career: web design, network installs, custom PCs, Android ROMs, Node.js, and now Rust, Lua, Quickshell/QML, and the Cybercore ecosystem.</p><p>For more than 30 years I worked as an automotive technician—electrical diagnostics, LAN/CAN bus systems, ECM reprogramming, engine builds, and nearly every system in a car. That work taught me the rule I carry into software: the tool in your hand doesn’t make the diagnosis. You do.</p><p>Everything on this site—and everything it links to—is architected, styled, and reviewed by hand. AI assistance handles grunt work, not decisions. Working smart isn’t a shortcut—it’s the point. The judgment, constraints, final call, and responsibility for what ships are still mine.</p><p class="statement-sign">— darkstardevx</p></div></dialog>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="darkstardevx signal mark">
+  <defs>
+    <linearGradient id="signal" x1="12" y1="12" x2="84" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0dfc4"/>
+      <stop offset=".52" stop-color="#c47748"/>
+      <stop offset="1" stop-color="#5ca7a0"/>
+    </linearGradient>
+  </defs>
+  <rect x="7" y="7" width="82" height="82" rx="22" fill="#101513" stroke="#c47748" stroke-width="2"/>
+  <path d="M17 57h12l6-25 9 41 9-30 7 14h19" fill="none" stroke="url(#signal)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="29" cy="57" r="3.5" fill="#f0dfc4"/>
+  <circle cx="77" cy="57" r="3.5" fill="#5ca7a0"/>
+  <path d="M24 23h48M24 74h18" stroke="#f0dfc4" stroke-opacity=".42" stroke-width="1.5"/>
+</svg>
